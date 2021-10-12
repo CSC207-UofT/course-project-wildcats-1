@@ -1,5 +1,5 @@
 package com.wildcats.ultimatechess;
 
-public class Rules {
+public class Piece {
 
 }

@@ -2,12 +2,16 @@ package com.wildcats.ultimatechess;
 
 public class User {
 
-    private String name;
+    private String id;
     private int gamesWon;
 
     public User() {}
 
-    public String getName() { return name; }
+    public User(String id) {
+        this.id = id;
+    }
+
+    public String getId() { return id; }
     public int getGamesWon() { return gamesWon; }
 
 }

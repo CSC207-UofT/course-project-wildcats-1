@@ -1,15 +1,15 @@
 package com.wildcats.ultimatechess;
 
+// This class will be used to store moves in the database.
+
 public class Move {
 
-    private String user1;
-    private String user2;
+    private String color;  // "White" or "Black"
     private String code;
 
     public Move() {}
 
-    public String getUser1() { return user1; }
-    public String getUser2() { return user2; }
+    public String getColor() { return color; }
     public String getCode() { return code; }
 
 }
