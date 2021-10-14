@@ -4,7 +4,8 @@ public class GameManager {
 
     private Piece[][] board;
     private Piece[] whitePiecesOut, blackPiecesOut;
-    private User playerWhite, playerBlack, playerInTurn;
+    private User playerWhite, playerBlack;
+    private boolean playerWhiteInTurn;
 
     public GameManager() {
         board = new Piece[8][8];
