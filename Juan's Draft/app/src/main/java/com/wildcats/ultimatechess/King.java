@@ -1,8 +1,8 @@
 package com.wildcats.ultimatechess;
 
-public class Pawn extends Piece {
+public class King extends Piece {
 
-    public Pawn(String color, String location) {
+    public King(String color, String location) {
         super(color, location);
     }
 

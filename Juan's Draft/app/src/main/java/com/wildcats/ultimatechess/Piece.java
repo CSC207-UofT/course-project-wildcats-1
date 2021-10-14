@@ -1,11 +1,32 @@
 package com.wildcats.ultimatechess;
 
-public interface Piece {
+public class Piece {
 
-    String color = "White";
-    String location = "a1";
-    boolean eliminated = false;
+    String color;
+    String location;
+    boolean eliminated;
 
-    public String[] getPossibleMoves(Piece[][] board);
+    public Piece(String color, String location) {
+        this.color = color;
+        this.location = location;
+        this.eliminated = false;
+    }
+
+    String getColor() { return color; }
+    String getLocation() { return location; }
+    boolean isEliminated() { return eliminated; }
+
+    public void move(String location) {
+        this.location = location;
+    }
+
+    public void eliminate() {
+        this.eliminated = true;
+        this.location = "";
+    }
+
+    public String[] getPossibleMoves(Piece[][] board) {
+        return new String[0];
+    }
 
 }
