@@ -7,6 +7,7 @@
     tools:context=".GameActivity">
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
@@ -397,48 +398,75 @@
                 app:srcCompat="@color/purple_500" />
 
             <ImageView
-                android:id="@+id/img_b7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/white" />
 
             <ImageView
-                android:id="@+id/img_c7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/purple_500" />
 
             <ImageView
-                android:id="@+id/img_d7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/white" />
 
             <ImageView
-                android:id="@+id/img_e7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/purple_500" />
 
             <ImageView
-                android:id="@+id/img_f7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/white" />
 
             <ImageView
-                android:id="@+id/img_g7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/purple_500" />
 
             <ImageView
-                android:id="@+id/img_h7"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:srcCompat="@color/white" />
         </TableRow>
 
     </TableLayout>
+
+    <TextView
+        android:id="@+id/txt_playerWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_playerBlack" />
+
+    <TextView
+        android:id="@+id/txt_playerBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
