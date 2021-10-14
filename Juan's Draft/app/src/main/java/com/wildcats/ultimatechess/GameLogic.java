@@ -1,10 +1,10 @@
 package com.wildcats.ultimatechess;
 
-public class GameRules {
+public class GameLogic {
 
     private Piece[][] board;  // Temporary copy of GameManager board.
 
-    public GameRules() {}
+    public GameLogic() {}
 
     public String[] getPossibleMoves(Piece[][] board, Piece piece, String pieceLocation) {
         String[] moves = new String[0];
