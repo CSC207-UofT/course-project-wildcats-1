@@ -2,8 +2,8 @@ package com.wildcats.ultimatechess;
 
 public class Piece {
 
-    String color;
-    String location;
+    private String color;
+    private String location;
     boolean eliminated;
 
     public Piece(String color, String location) {
