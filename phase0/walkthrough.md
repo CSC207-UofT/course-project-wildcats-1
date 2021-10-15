@@ -1,6 +1,5 @@
-GameManager creates 64 instances of square and two new instances of user. Board accordingly stores all instances of square,
-each either being empty or containing a piece. GameManager prompts user input to move a piece. GameManager updates two instances
-of square, first storing a pawnPiece object in an empty corresponding square and removing a pawnPiece from the original square.
-Board state is updated with new squares. GameManager then changes active player and prompts the next user to make a move.
-User selects forfeit so gameManager calls endGame method. GameManager prompts user to choose if they want to play again.
-If no, gameManager reads input and terminates program.
+The app opens to a screen which allows you to select a single-player or multiplayer option. 
+
+If you select single-player, you will be assigned either white or black and start a chess game against a CPU (AI). You will take turns, moving a single piece to a valid spot each turn, a la a regular game of chess. When either you or the CPU puts the other in checkmate, a pop up shows who won the game. If you select to forfeit the game, a pop up shows that the CPU wins. The app then takes you back to the main menu to play another game or close the app.
+
+If you select multiplayer, you will be matched with someone running the app on another device and then you will be assigned either white or black. You will each take turns, moving a single piece to a valid spot each turn, a la a regular game of chess. When either you or your opponent puts the other in checkmate, a pop up shows who won the game. If you select to forfeit the game, a pop up shows that the other player wins the game. The app then takes you back to the main menu to play another game or close the app.
