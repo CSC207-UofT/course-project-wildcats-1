@@ -6,467 +6,344 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="100dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="800px"
+        android:layout_height="800px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_b8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_c8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_d8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_e8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_f8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_g8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_h8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_b7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_c7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_d7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_e7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_f7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_g7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_h7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_b6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_c6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_d6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_e6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_f6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_g6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_h6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_b7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_c7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_d7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_e7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_f7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_g7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_h7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_b8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_c8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_d8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_e8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_f8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_g8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_h8"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_b7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_c7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_d7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_e7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_f7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_g7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_h7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_b6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_c6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_d6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_e6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_f6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:id="@+id/img_g6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:id="@+id/img_h6"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/img_a7"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/purple_500" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:srcCompat="@color/white" />
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/txt_playerWhite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_playerBlack" />
-
-    <TextView
-        android:id="@+id/txt_playerBlack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_chat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/img_board"
+            android:layout_width="800px"
+            android:layout_height="800px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/board" />
+
+        <ImageView
+            android:id="@+id/img_pawnW1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="0px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="100px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW3"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="200px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW4"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="300px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW5"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="400px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW6"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="500px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW7"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="600px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnW8"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="700px"
+            android:translationY="600px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_white" />
+
+        <ImageView
+            android:id="@+id/img_pawnB1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="0px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="100px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB3"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="200px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB4"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="300px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB5"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="400px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB6"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="500px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB7"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="600px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_pawnB8"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="700px"
+            android:translationY="100px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pawn_black" />
+
+        <ImageView
+            android:id="@+id/img_rookB1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="0px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rook_black" />
+
+        <ImageView
+            android:id="@+id/img_rookB2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="700px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rook_black" />
+
+        <ImageView
+            android:id="@+id/img_rookW1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="0px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rook_white" />
+
+        <ImageView
+            android:id="@+id/img_rookW2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="700px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rook_white" />
+
+        <ImageView
+            android:id="@+id/img_knightB1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="100px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/knight_black" />
+
+        <ImageView
+            android:id="@+id/img_knightB2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="600px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/knight_black" />
+
+        <ImageView
+            android:id="@+id/img_knightW1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="100px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/knight_white" />
+
+        <ImageView
+            android:id="@+id/img_knightW2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="600px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/knight_white" />
+
+        <ImageView
+            android:id="@+id/img_bishopB1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="200px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bishop_black" />
+
+        <ImageView
+            android:id="@+id/img_bishopB2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="500px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bishop_black" />
+
+        <ImageView
+            android:id="@+id/img_bishopW1"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="200px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bishop_white" />
+
+        <ImageView
+            android:id="@+id/img_bishopW2"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="500px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bishop_white" />
+
+        <ImageView
+            android:id="@+id/img_queenB"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="300px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/queen_black" />
+
+        <ImageView
+            android:id="@+id/img_queenW"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="300px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/queen_white" />
+
+        <ImageView
+            android:id="@+id/img_kingB"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="400px"
+            android:translationY="0px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/king_black" />
+
+        <ImageView
+            android:id="@+id/img_kingw"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:translationX="400px"
+            android:translationY="700px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/king_white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

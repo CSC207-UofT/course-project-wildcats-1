@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        firebaseDocRef = FirebaseFirestore.getInstance().document("chats/chat1");
+        /*firebaseDocRef = FirebaseFirestore.getInstance().document("chats/chat1");
         firebaseDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity {
                     txt_chat.setText(chat);
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_game);
 
-        txt_playerWhite = findViewById(R.id.txt_playerWhite);
+        /*txt_playerWhite = findViewById(R.id.txt_playerWhite);
         txt_playerBlack = findViewById(R.id.txt_playerBlack);
         txt_chat = findViewById(R.id.txt_chat);
         btn_test = findViewById(R.id.btn_test);
@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        });*/
     }
 
 }
