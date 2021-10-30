@@ -1,14 +1,20 @@
 package com.wildcats.ultimatechess;
 
+import java.util.ArrayList;
+
 public class GameManager {
 
     private Piece[][] board;
-    private Piece[] whitePiecesOut, blackPiecesOut;
+    private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
     private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
 
-    public GameManager() {
-        board = new Piece[8][8];
+    /**
+     *
+     * @param inputBoard The starting board containing all pieces needed to start the game.
+     */
+    public GameManager(Board inputBoard) {
+        board = inputBoard;
     }
 
     public Piece[][] getBoard() { return board; }
@@ -17,7 +23,7 @@ public class GameManager {
         /**
          * Need to input players, place pieces, set white first
          */
-        playerWhiteInTurn = true
+        playerWhiteInTurn = true;
     }
 
     public void setUpWhite(User white) {
