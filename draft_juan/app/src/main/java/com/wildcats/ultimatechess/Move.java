@@ -12,5 +12,4 @@ public class Move {
     public String getColor() { return color; }
     public String getCode() { return code; }
 
-
 }
