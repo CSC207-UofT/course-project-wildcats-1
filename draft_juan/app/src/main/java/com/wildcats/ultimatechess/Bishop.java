@@ -6,9 +6,4 @@ public class Bishop extends Piece {
         super(color, location);
     }
 
-    @Override
-    public String[] getPossibleMoves(Piece[][] board) {
-        return new String[0];
-    }
-
 }

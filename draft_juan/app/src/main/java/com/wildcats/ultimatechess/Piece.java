@@ -25,8 +25,4 @@ public class Piece {
         this.location = "";
     }
 
-    public String[] getPossibleMoves(Piece[][] board) {
-        return new String[0];
-    }
-
 }
