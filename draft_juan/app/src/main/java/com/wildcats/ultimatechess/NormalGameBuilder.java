@@ -19,7 +19,7 @@ class NormalGameBuilder implements GameBuilder {
     /**
      * A helper method for buildBoard, sets up White side.
      */
-    private buildWhiteBoard(){
+    private void buildWhiteBoard(){
 
         board.addPiece(new Rook("White", "a1"), "a1");
         board.addPiece(new Knight("White", "b1"), "b1");
@@ -43,7 +43,7 @@ class NormalGameBuilder implements GameBuilder {
     /**
      * A helper method for buildBoard, sets up Black side.
      */
-    private buildBlackBoard(){
+    private void buildBlackBoard(){
 
         board.addPiece(new Rook("Black", "a8"), "a8");
         board.addPiece(new Knight("Black", "b8"), "b8");
@@ -66,7 +66,19 @@ class NormalGameBuilder implements GameBuilder {
     }
 
     //TODO How to collect info from database?
-    public void buildPlayers();
+    public void buildPlayers() {
+
+    }
+
+    @Override
+    public void constructBoard() {
+
+    }
+
+    @Override
+    public void addPlayers() {
+
+    }
 
     public GameManager getGame(){
 

@@ -4,7 +4,7 @@ public class Board {
 
     private Piece[][] board;
 
-    public Board(){
+    public Board() {
         Board board;
     }
 
@@ -12,7 +12,7 @@ public class Board {
      * Adds a piece onto the board.
      *
      * @param piece The Piece to be added to the Board
-     * @param square The string name of the square to which piece is added
+     * @param squareID The string coordinate of the square to which piece is added
      */
     public void addPiece(Piece piece, String squareID){
 
@@ -63,7 +63,7 @@ public class Board {
      * @param squareID The String representation of the square being checked
      * @return True if the square is empty and False otherwise
      */
-    public boolean checkSquareEmpty(String squareID){
+    public boolean checkSquareEmpty(String squareID) {
 
         int rowNum = this.getRowNum(squareID);
         int colNum = this.getColNum(squareID);
@@ -72,39 +72,48 @@ public class Board {
     }
 
     /**
+     * @param squareID The String representation of the square on the board.
+     *
+     * @return The piece at the specified square, or null.
+     */
+    public Piece checkSquare(String squareID) {
+        return this.board[this.getColNum(squareID)][this.getRowNum(squareID)];
+    }
+
+    /**
      * Returns the row number of the square as an int that can be used in board methods
      *
-     * @param squareID The String representation of the square
+     * @param squareID The String representation of the square on the board.
      */
     private int getRowNum(String squareID) {
 
-        int rowNum = squareID.substring(1) - 1;
-        return rowNum;
+        return Integer.parseInt(squareID.substring(1)) - 1;
     }
 
     /**
      * Returns the column number of the square as an int that can be used in board methods
      *
-     * @param squareID The String representation of the square
+     * @param squareID The String representation of the square on the board.
      */
     private int getColNum(String squareID) {
-
+        int colNum = -1;
         String colLetter = squareID.substring(0, 1);
-        if (colLetter == "a") {
+
+        if (colLetter.equals("a")) {
             colNum = 0;
-        } else if(colLetter == "b") {
+        } else if(colLetter.equals("b")) {
             colNum = 1;
-        } else if(colLetter == "c") {
+        } else if(colLetter.equals("c")) {
             colNum = 2;
-        } else if(colLetter == "d") {
+        } else if(colLetter.equals("d")) {
             colNum = 3;
-        } else if(colLetter == "e") {
+        } else if(colLetter.equals("e")) {
             colNum = 4;
-        } else if(colLetter == "f") {
+        } else if(colLetter.equals("f")) {
             colNum = 5;
-        } else if(colLetter == "g") {
+        } else if(colLetter.equals("g")) {
             colNum = 6;
-        } else if(colLetter == "h") {
+        } else if(colLetter.equals("h")) {
             colNum = 7;
         }
         return colNum;

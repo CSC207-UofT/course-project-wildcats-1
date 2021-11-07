@@ -6,9 +6,4 @@ public class Knight extends Piece {
         super(color, location);
     }
 
-    @Override
-    public String[] getPossibleMoves(Piece[][] board) {
-        return new String[0];
-    }
-
 }
