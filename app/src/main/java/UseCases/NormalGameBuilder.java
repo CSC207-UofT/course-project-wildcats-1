@@ -1,4 +1,4 @@
-package useCases;
+package UseCases;
 
 import Entities.Bishop;
 import Entities.Board;

@@ -1,22 +1,16 @@
-package useCases;
-
-import java.util.Arrays;
-
-import Entities.Board;
-import Entities.Pawn;
-import Entities.Piece;
+package UseCases;
 
 public class MoveChecker {
 
     private final String[] LETTER_COORDINATES =
             new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
     
-    public boolean checkValidPawnMove(Board board, Pawn pawn, String loc) {
+    /*public boolean checkValidPawnMove(Board board, Pawn pawn, String loc) {
         // integer of the difference between the column you're at, from the column you're going to.
         int colDiff = Arrays.asList(LETTER_COORDINATES).indexOf(loc.substring(0,1)) -
                 Arrays.asList(LETTER_COORDINATES).indexOf(pawn.location.substring(0,1));
         int rowDiff = Integer.parseInt(loc.substring(1)) -
-                Integer.parseInt(pawn.location.substring(1));
+                Integer.parseInt(pawn.getLocation().substring(1));
 
         if (colDiff == 0 && rowDiff == 1 && pawn.color.equals("white") &&
                 board.checkSquareEmpty(loc)) {
@@ -45,6 +39,6 @@ public class MoveChecker {
                     poss_pawn instanceof Pawn);
         }
         return false;
-    }
+    }*/
 
 }
