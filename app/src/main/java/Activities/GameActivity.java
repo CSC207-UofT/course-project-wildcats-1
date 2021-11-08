@@ -1,22 +1,13 @@
-package Controllers;
+package Activities;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.annotation.SuppressLint;
+
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.wildcats.ultimatechess.R;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.firestore.DocumentReference;
+import com.wildcats.ultimatechess.R;
 
 public class GameActivity extends AppCompatActivity {
 

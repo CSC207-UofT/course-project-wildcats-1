@@ -2,9 +2,9 @@ package UseCases;
 
 import java.util.ArrayList;
 
-import Entities.Board;
-import Entities.Piece;
-import Entities.User;
+import Pieces.Board;
+import Pieces.Piece;
+import Database.User;
 
 public class GameManager {
 
