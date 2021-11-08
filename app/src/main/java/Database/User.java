@@ -1,9 +1,11 @@
 package Database;
 
-public class User {
+public class User extends Document {
 
-    private final String name, password;
+    private String name, password;
     private int numGamesWon, numGamesLost;
+
+    public User() {}
 
     public User(String name, String password, int numGamesWon, int numGamesLost) {
         this.name = name;

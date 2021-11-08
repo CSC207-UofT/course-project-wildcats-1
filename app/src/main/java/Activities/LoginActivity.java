@@ -6,14 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.wildcats.ultimatechess.R;
-import java.util.List;
-
+import Database.User;
 import Database.Database;
 
 public class LoginActivity extends AppCompatActivity {
@@ -38,29 +32,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginClicked() {
+
         String username = eTxt_username.getText().toString();
         String password = eTxt_password.getText().toString();
 
-        Database database = new Database();
-        database.getEntries("", entries -> {
-
-        });
-
-        CollectionReference firebaseUsers = FirebaseFirestore.getInstance().collection("users");
-        firebaseUsers.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot snapshot) {
-                String id = "";
-                List<DocumentSnapshot> users = snapshot.getDocuments();
-                for (DocumentSnapshot user : users) {
-                    if (user.getString("name").equals(username)
-                            && user.getString("password").equals(password)) {
-                        id = user.getId();
-                        openStartActivity(username, id);
-                    }
+        Database.getDocs(Database.Collections.USERS, docs -> {
+            for (Object doc : docs) {
+                User user = (User)doc;
+                if (user.getName().equals(username) && user.getPassword().equals(password)) {
+                    openStartActivity(username, user.getID());
+                    return;
                 }
             }
         });
+
     }
 
     private void openStartActivity(String username, String id) {

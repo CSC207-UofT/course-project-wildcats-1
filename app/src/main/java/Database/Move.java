@@ -1,8 +1,10 @@
 package Database;
 
-public class Move {
+public class Move extends Document {
 
-    private final String color, code;
+    private String color, code;
+
+    public Move() {}
 
     public Move(String color, String code) {
         this.color = color;

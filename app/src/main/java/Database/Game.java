@@ -1,8 +1,10 @@
 package Database;
 
-public class Game {
+public class Game extends Document {
 
-    private final String playerWhiteID, playerBlackID;
+    private String playerWhiteID, playerBlackID;
+
+    public Game() {}
 
     public Game(String playerWhiteID, String playerBlackID) {
         this.playerWhiteID = playerWhiteID;
