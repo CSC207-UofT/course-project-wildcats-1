@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
+import Database.User.UserRef;
 
 public class Database {
 
@@ -70,6 +71,7 @@ public class Database {
                         case USERS: docs.add(docSnapshot.toObject(User.class)); break;
                         case GAMES: docs.add(docSnapshot.toObject(Game.class)); break;
                         case MOVES: docs.add(docSnapshot.toObject(Move.class)); break;
+                        case USERS_MATCHMAKING: docs.add(docSnapshot.toObject(UserRef.class)); break;
                     }
                 }
                 event.onComplete(docs);

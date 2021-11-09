@@ -1,38 +1,17 @@
 package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.Button;
+import android.os.Handler;
 import android.widget.TextView;
-
-import com.google.firebase.firestore.DocumentReference;
 import com.wildcats.ultimatechess.R;
+import Database.Database;
+import Database.Move;
 
 public class GameActivity extends AppCompatActivity {
 
     private TextView txt_playerWhite, txt_playerBlack;
-    private TextView txt_chat;
-    private Button btn_test;
-
-    private DocumentReference firebaseDocRef;
-    private String username;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*firebaseDocRef = FirebaseFirestore.getInstance().document("chats/chat1");
-        firebaseDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
-                if (snapshot != null) {
-                    String chat = snapshot.getString("text");
-                    txt_chat.setText(chat);
-                }
-            }
-        });*/
-    }
+    private String username, userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,32 +19,25 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_game);
 
-        /*txt_playerWhite = findViewById(R.id.txt_playerWhite);
-        txt_playerBlack = findViewById(R.id.txt_playerBlack);
-        txt_chat = findViewById(R.id.txt_chat);
-        btn_test = findViewById(R.id.btn_test);
+        gameLoop();
 
-        txt_playerWhite.setText("user1");
-        txt_playerBlack.setText("user2");
+    }
 
-        Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
+    private void gameLoop() {
+        Database.fetch(Database.Collections.MOVES, docs -> {
 
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot snapshot) {
-                        String newChatInput = username + "\n";
-                        String chat = snapshot.getString("text");
-                        Map<String, Object> data = new HashMap<String, Object>();
-                        data.put("text", chat + newChatInput);
-                        firebaseDocRef.set(data);
-                    }
-                });
-            }
-        });*/
+            System.out.println("=== GAME LOOP ===");
+
+            // The game loop will check every second for new moves.
+            // A new move is committed as the following:
+            // Database.insert(Database.Collections.MOVES, new Move(...), ()->{});
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() { gameLoop(); }
+            }, 1000);
+        });
     }
 
 }

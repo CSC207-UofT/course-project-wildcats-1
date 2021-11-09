@@ -19,4 +19,11 @@ public class User extends Document {
     public int getNumGamesWon() { return numGamesWon; }
     public int getNumGamesLost() { return numGamesLost; }
 
+    public static class UserRef extends Document {
+        private String userID;
+        public UserRef() {}
+        public UserRef(String userID) { this.userID = userID; }
+        public String getUserID() { return userID; }
+    }
+
 }

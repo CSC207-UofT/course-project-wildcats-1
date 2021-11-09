@@ -8,7 +8,6 @@ public class Document {
     private String documentId;
 
     public Document() {}
-
     public String getDocumentId() { return documentId; }
 
 }
