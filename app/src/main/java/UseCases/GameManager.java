@@ -61,9 +61,14 @@ public class GameManager {
                 board.removePiece(newSpot);
             board.addPiece(movingPiece, newSpot);
             board.removePiece(currSpot);
+            // promote pawn
             if (board.getRowNum(newSpot) == 1 || board.getRowNum(newSpot) == 8){
                 board.removePiece(newSpot);
                 board.addPiece(new Queen("black", newSpot));
+            }
+            // en passant
+            if(){
+
             }
 
         }
