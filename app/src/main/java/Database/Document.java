@@ -1,8 +1,14 @@
 package Database;
 
+import com.google.firebase.firestore.DocumentId;
+
 public class Document {
-    private String ID;
+
+    @DocumentId
+    private String documentId;
+
     public Document() {}
-    public String getID() { return ID; }
-    public void setID(String ID) { this.ID = ID; }
+
+    public String getDocumentId() { return documentId; }
+
 }

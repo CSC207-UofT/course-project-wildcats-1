@@ -8,6 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.wildcats.ultimatechess.R;
 import Database.User;
+import Database.Document;
 import Database.Database;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { onLoginClicked(); }
         });
+
     }
 
     private void onLoginClicked() {
@@ -36,11 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         String username = eTxt_username.getText().toString();
         String password = eTxt_password.getText().toString();
 
-        Database.getDocs(Database.Collections.USERS, docs -> {
-            for (Object doc : docs) {
+        Database.fetch(Database.Collections.USERS, docs -> {
+            for (Document doc : docs) {
                 User user = (User)doc;
                 if (user.getName().equals(username) && user.getPassword().equals(password)) {
-                    openStartActivity(username, user.getID());
+                    openStartActivity(username, user.getDocumentId());
                     return;
                 }
             }
