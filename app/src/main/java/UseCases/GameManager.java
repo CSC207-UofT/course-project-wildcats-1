@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Pieces.Board;
 import Pieces.Piece;
 import Database.User;
+import Pieces.Queen;
 
 public class GameManager {
 
@@ -46,7 +47,26 @@ public class GameManager {
         return board;
     }
 
-    public void makeMove(Piece piece, String location) {
+    public void makeMove(String currSpot, String newSpot) {
+        Piece movingPiece = board.checkSquare(currSpot);
+        Object potentialPiece = board.checkSquare(newSpot);
+
+        MoveChecker checker = new MoveChecker();
+        Boolean condition1 = true;
+        // Boolean condition1 = checker.checkValidMove(board, currSpot, newSpot);
+        Boolean condition2 = true;
+        // condition2 = !Player.isChecked
+        if(condition1 && condition2){
+            if(potentialPiece != null)
+                board.removePiece(newSpot);
+            board.addPiece(movingPiece, newSpot);
+            board.removePiece(currSpot);
+            if (board.getRowNum(newSpot) == 1 || board.getRowNum(newSpot) == 8){
+                board.removePiece(newSpot);
+                board.addPiece(new Queen("black", newSpot));
+            }
+
+        }
 
     }
 
