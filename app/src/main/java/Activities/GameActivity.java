@@ -1,12 +1,9 @@
 package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.firebase.firestore.DocumentReference;
 import com.wildcats.ultimatechess.R;
 
 public class GameActivity extends AppCompatActivity {
@@ -15,8 +12,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView txt_chat;
     private Button btn_test;
 
-    private DocumentReference firebaseDocRef;
-    private String username;
+    private String username, userid;
 
     @Override
     protected void onStart() {
@@ -32,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });*/
+
     }
 
     @Override
@@ -40,32 +37,7 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_game);
 
-        /*txt_playerWhite = findViewById(R.id.txt_playerWhite);
-        txt_playerBlack = findViewById(R.id.txt_playerBlack);
-        txt_chat = findViewById(R.id.txt_chat);
-        btn_test = findViewById(R.id.btn_test);
 
-        txt_playerWhite.setText("user1");
-        txt_playerBlack.setText("user2");
-
-        Bundle extras = getIntent().getExtras();
-        username = extras.getString("username");
-
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot snapshot) {
-                        String newChatInput = username + "\n";
-                        String chat = snapshot.getString("text");
-                        Map<String, Object> data = new HashMap<String, Object>();
-                        data.put("text", chat + newChatInput);
-                        firebaseDocRef.set(data);
-                    }
-                });
-            }
-        });*/
     }
 
 }
