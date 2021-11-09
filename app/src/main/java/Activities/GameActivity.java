@@ -2,34 +2,16 @@ package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import android.os.Handler;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
+import Database.Database;
+import Database.Move;
 
 public class GameActivity extends AppCompatActivity {
 
     private TextView txt_playerWhite, txt_playerBlack;
-    private TextView txt_chat;
-    private Button btn_test;
-
     private String username, userid;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        /*firebaseDocRef = FirebaseFirestore.getInstance().document("chats/chat1");
-        firebaseDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
-                if (snapshot != null) {
-                    String chat = snapshot.getString("text");
-                    txt_chat.setText(chat);
-                }
-            }
-        });*/
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +19,25 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_game);
 
+        gameLoop();
 
+    }
+
+    private void gameLoop() {
+        Database.fetch(Database.Collections.MOVES, docs -> {
+
+            System.out.println("=== GAME LOOP ===");
+
+            // The game loop will check every second for new moves.
+            // A new move is committed as the following:
+            // Database.insert(Database.Collections.MOVES, new Move(...), ()->{});
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() { gameLoop(); }
+            }, 1000);
+        });
     }
 
 }

@@ -10,6 +10,7 @@ import com.wildcats.ultimatechess.R;
 import Database.User;
 import Database.Document;
 import Database.Database;
+import Database.Move;
 
 public class LoginActivity extends AppCompatActivity {
 

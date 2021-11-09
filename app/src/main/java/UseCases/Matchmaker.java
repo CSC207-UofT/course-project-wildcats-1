@@ -29,11 +29,17 @@ public class Matchmaker {
             }
             else {
                 Database.fetch(Database.Collections.USERS_MATCHMAKING, matchmakingDocs -> {
+                    String userRefId = "";
+                    for (Document doc : matchmakingDocs) {
+                        if (((UserRef) doc).getUserID().equals(userId)) {
+                            userRefId = doc.getDocumentId();
+                        }
+                    }
                     for (Document doc : matchmakingDocs) {
                         String opponentId = ((UserRef) doc).getUserID();
                         if (!opponentId.equals(userId)) {
-                            Database.delete(Database.Collections.USERS_MATCHMAKING, userId, ()->{});
-                            Database.delete(Database.Collections.USERS_MATCHMAKING, opponentId, ()->{});
+                            Database.delete(Database.Collections.USERS_MATCHMAKING, userRefId, ()->{});
+                            Database.delete(Database.Collections.USERS_MATCHMAKING, doc.getDocumentId(), ()->{});
                             Game game = new Game(userId, opponentId);
                             Database.insert(Database.Collections.GAMES, game, ()->{});
                             event.onJoin();
