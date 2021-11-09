@@ -1,4 +1,4 @@
-package Controllers;
+package Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package Entities;
+package Pieces;
 
 public class Piece {
 
@@ -12,9 +12,9 @@ public class Piece {
         this.eliminated = false;
     }
 
-    String getColor() { return color; }
-    String getLocation() { return location; }
-    boolean isEliminated() { return eliminated; }
+    public String getColor() { return color; }
+    public String getLocation() { return location; }
+    public boolean isEliminated() { return eliminated; }
 
     public void move(String location) {
         this.location = location;

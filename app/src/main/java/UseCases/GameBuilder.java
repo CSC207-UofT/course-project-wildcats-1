@@ -1,4 +1,4 @@
-package useCases;
+package UseCases;
 
 /**
  * An interface for building a game and its GameManager.

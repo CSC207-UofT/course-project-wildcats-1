@@ -1,4 +1,4 @@
-package Entities;
+package Pieces;
 
 public class Rook extends Piece {
 

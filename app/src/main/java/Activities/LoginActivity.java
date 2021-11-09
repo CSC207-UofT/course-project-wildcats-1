@@ -1,19 +1,15 @@
-package Controllers;
+package Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import androidx.appcompat.app.AppCompatActivity;
 import com.wildcats.ultimatechess.R;
-
-import java.util.List;
+import Database.User;
+import Database.Document;
+import Database.Database;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,27 +30,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) { onLoginClicked(); }
         });
+
     }
 
     private void onLoginClicked() {
+
         String username = eTxt_username.getText().toString();
         String password = eTxt_password.getText().toString();
 
-        CollectionReference firebaseUsers = FirebaseFirestore.getInstance().collection("users");
-        firebaseUsers.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot snapshot) {
-                String id = "";
-                List<DocumentSnapshot> users = snapshot.getDocuments();
-                for (DocumentSnapshot user : users) {
-                    if (user.getString("name").equals(username)
-                            && user.getString("password").equals(password)) {
-                        id = user.getId();
-                        openStartActivity(username, id);
-                    }
+        Database.fetch(Database.Collections.USERS, docs -> {
+            for (Document doc : docs) {
+                User user = (User)doc;
+                if (user.getName().equals(username) && user.getPassword().equals(password)) {
+                    openStartActivity(username, user.getDocumentId());
+                    return;
                 }
             }
         });
+
     }
 
     private void openStartActivity(String username, String id) {
