@@ -17,6 +17,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Bind xml containing the GUI.
         setContentView(R.layout.activity_game);
 
         gameLoop();
@@ -32,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
             // A new move is committed as the following:
             // Database.insert(Database.Collections.MOVES, new Move(...), ()->{});
 
+            // Run this method recursively every 1000ms (1s).
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
