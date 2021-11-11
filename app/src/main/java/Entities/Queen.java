@@ -1,4 +1,4 @@
-package Pieces;
+package Entities;
 
 public class Queen extends Piece {
 

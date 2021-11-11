@@ -2,8 +2,8 @@ package UseCases;
 
 import java.util.ArrayList;
 
-import Pieces.Board;
-import Pieces.Piece;
+import Entities.Board;
+import Entities.Piece;
 import Database.User;
 
 public class GameManager {
@@ -12,16 +12,13 @@ public class GameManager {
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
     private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
-    private final String[] LETTER_COORDINATES;
 
     /**
      *
-     * @param inputBoard The starting board containing all pieces needed to start the game.
+     * @param startBoard The starting board containing all pieces needed to start the game.
      */
-    public GameManager(Board inputBoard) {
-        this.board = inputBoard;
-        this.LETTER_COORDINATES = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-
+    public GameManager(Board startBoard) {
+        this.board = startBoard;
     }
 
     public void startGame() {
@@ -46,8 +43,29 @@ public class GameManager {
         return board;
     }
 
-    public void makeMove(Piece piece, String location) {
-
+    /**
+     * Moves a piece from startLoc to targetLoc and changes the turn to the opposing player.
+     *
+     * If a piece is removed, it is added to either whitePiecesOut or blackPiecesOut.
+     *
+     * @param startLoc  The starting location of the piece being moved.
+     * @param targetLoc The target location of the piece being moved.
+     */
+    public void makeMove(String startLoc, String targetLoc) {
+        if(!board.checkSquareEmpty(targetLoc)){
+            Piece removedPiece = board.removePiece(targetLoc);
+            if (removedPiece.getColor().equals("White")){
+                this.whitePiecesOut.add(removedPiece);
+            }else{
+                this.blackPiecesOut.add(removedPiece);
+            }
+        }
+        board.movePiece(startLoc, targetLoc);
+        if(this.playerWhiteInTurn){
+            this.playerWhiteInTurn = false;
+        }else{
+            this.playerWhiteInTurn = true;
+        }
     }
 
     /**
