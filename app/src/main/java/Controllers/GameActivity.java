@@ -3,15 +3,19 @@ package Controllers;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
 import Interface.Database;
+import android.view.View;
 
 // Controls user input for the Game page.
 public class GameActivity extends AppCompatActivity {
 
     private TextView txt_playerWhite, txt_playerBlack;
     private String username, userid;
+    private View board;
+    private float[] touchLoc = new float[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +24,37 @@ public class GameActivity extends AppCompatActivity {
         // Bind xml containing the GUI.
         setContentView(R.layout.activity_game);
 
+        // find the 8x8 board on the screen
+        board = findViewById(R.id.img_board);
+        board.setOnTouchListener(touchListener);
         gameLoop();
 
+
     }
+    // Method to define what is done when a location on the board is touched/clicked
+    // In this case, it will set touch location indexes to match where on the board was touched.
+    // (0,0) is the top left of the board.
+    View.OnTouchListener touchListener = new View.OnTouchListener(){
+        @Override
+        public boolean onTouch(View v, MotionEvent me){
+            if (me.getActionMasked() == MotionEvent.ACTION_DOWN){
+                touchLoc[0] = me.getX();
+                touchLoc[1] = me.getY();
+            }
+            System.out.println(boardCordConvert(touchLoc[0], touchLoc[1], true));
+            return false;
+        }
+
+
+    };
+
 
     private void gameLoop() {
         Database.fetch(Database.Collections.MOVES, docs -> {
 
             System.out.println("=== GAME LOOP ===");
+
+
 
             // The game loop will check every second for new moves.
             // A new move is committed as the following:
@@ -40,6 +67,30 @@ public class GameActivity extends AppCompatActivity {
                 public void run() { gameLoop(); }
             }, 1000);
         });
+    }
+    /**
+     * Returns the chess coordinate of a given x,y value on the board view
+     *
+     * @param x the x-coordinate of click
+     * @param y the y-coordinate of click
+     * @param isWhite true if the board is being viewed from white side, false otherwise
+     */
+    private String boardCordConvert(float x, float y, boolean isWhite){
+        float boardSize = board.getHeight();
+        float squareSize = boardSize/8;
+        final char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+        final char[] nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
+        char letter, num;
+
+        if (isWhite){
+            letter = letters[(int)(x/squareSize)];
+            num = nums[7-((int)(y/squareSize))];
+        }
+        else{
+            letter = letters[7-((int)(x/squareSize))];
+            num = nums[(int)(y/squareSize)];
+        }
+        return ""+letter+num;
     }
 
 }
