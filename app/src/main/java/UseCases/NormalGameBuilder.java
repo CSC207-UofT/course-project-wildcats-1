@@ -1,13 +1,13 @@
 package UseCases;
 
-import Pieces.Bishop;
-import Pieces.Board;
-import Pieces.King;
-import Pieces.Knight;
-import Pieces.Pawn;
-import Pieces.Queen;
-import Pieces.Rook;
-import Database.User;
+import Entities.Bishop;
+import Entities.Board;
+import Entities.King;
+import Entities.Knight;
+import Entities.Pawn;
+import Entities.Queen;
+import Entities.Rook;
+import Interface.User;
 
 class NormalGameBuilder implements GameBuilder {
 
