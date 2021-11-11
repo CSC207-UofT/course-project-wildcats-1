@@ -1,12 +1,11 @@
-package UseCases;
+package Controllers;
 
 import android.os.Handler;
 import java.util.concurrent.ThreadLocalRandom;
-import Database.Database;
-import Database.Document;
-import Database.Game;
-import Database.User;
-import Database.User.UserRef;
+import Interface.Database;
+import Interface.Document;
+import Interface.Game;
+import Interface.User.UserRef;
 
 public class Matchmaker {
 

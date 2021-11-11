@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UltimateChess">
         <activity
-            android:name="Activities.StartActivity"
+            android:name="Controllers.StartActivity"
             android:exported="true" />
         <activity
-            android:name="Activities.GameActivity"
+            android:name="Controllers.GameActivity"
             android:exported="true" />
         <activity
-            android:name="Activities.LoginActivity"
+            android:name="Controllers.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

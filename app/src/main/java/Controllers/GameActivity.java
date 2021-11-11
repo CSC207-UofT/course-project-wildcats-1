@@ -1,13 +1,13 @@
-package Activities;
+package Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
-import Database.Database;
-import Database.Move;
+import Interface.Database;
 
+// Controls user input for the Game page.
 public class GameActivity extends AppCompatActivity {
 
     private TextView txt_playerWhite, txt_playerBlack;

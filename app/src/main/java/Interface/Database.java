@@ -1,4 +1,4 @@
-package Database;
+package Interface;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
-import Database.User.UserRef;
+import Interface.User.UserRef;
 
 public class Database {
 

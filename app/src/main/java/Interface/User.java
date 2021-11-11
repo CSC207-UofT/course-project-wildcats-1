@@ -1,4 +1,4 @@
-package Database;
+package Interface;
 
 public class User extends Document {
 

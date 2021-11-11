@@ -1,4 +1,4 @@
-package Activities;
+package Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.wildcats.ultimatechess.R;
-import Database.Database;
-import UseCases.Matchmaker;
-import Database.User.UserRef;
+import Interface.Database;
+import Interface.User.UserRef;
 
+// Controls user input for the Start page.
 public class StartActivity extends AppCompatActivity {
 
     private String username, userid;
