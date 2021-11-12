@@ -7,7 +7,7 @@ import Entities.Knight;
 import Entities.Pawn;
 import Entities.Queen;
 import Entities.Rook;
-import Interface.User;
+import Interfaces.User;
 
 class NormalGameBuilder implements GameBuilder {
 
