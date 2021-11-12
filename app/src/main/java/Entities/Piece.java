@@ -1,10 +1,14 @@
 package Entities;
 
+import android.graphics.drawable.Drawable;
+
+
 public class Piece {
 
     String color;
     String location;
     boolean eliminated;
+    int image;
 
     public Piece(String color, String location) {
         this.color = color;
@@ -18,6 +22,9 @@ public class Piece {
 
     public void move(String location) {
         this.location = location;
+    }
+    public int getImage(){
+        return image;
     }
 
     public void eliminate() {
