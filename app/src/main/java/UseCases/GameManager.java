@@ -3,6 +3,8 @@ package UseCases;
 import java.util.ArrayList;
 
 import Pieces.Board;
+import Pieces.King;
+import Pieces.Pawn;
 import Pieces.Piece;
 import Database.User;
 import Pieces.Queen;
@@ -57,17 +59,16 @@ public class GameManager {
         Boolean condition2 = true;
         // condition2 = !Player.isChecked
         if(condition1 && condition2){
-            if(potentialPiece != null)
-                board.removePiece(newSpot);
-            board.addPiece(movingPiece, newSpot);
-            board.removePiece(currSpot);
+            board.movePiece(currSpot, newSpot);
             // promote pawn
-            if (board.getRowNum(newSpot) == 1 || board.getRowNum(newSpot) == 8){
+            if (board.checkSquare(newSpot) instanceof Pawn && (board.getRowNum(newSpot) == 1
+                    || board.getRowNum(newSpot) == 8)){
+                String color = board.checkSquare(newSpot).getColor();
                 board.removePiece(newSpot);
-                board.addPiece(new Queen("black", newSpot));
+                board.addPiece(new Queen(color, newSpot), newSpot);
             }
-            // en passant
-            if(){
+            // castling
+            if(board.checkSquare(newSpot) instanceof King && ){
 
             }
 
