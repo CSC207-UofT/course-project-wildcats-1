@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Entities.Board;
 import Entities.Piece;
-import Database.User;
+import Interface.User;
 
 public class GameManager {
 

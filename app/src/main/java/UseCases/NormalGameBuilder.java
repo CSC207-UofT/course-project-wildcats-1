@@ -7,7 +7,7 @@ import Entities.Knight;
 import Entities.Pawn;
 import Entities.Queen;
 import Entities.Rook;
-import Database.User;
+import Interface.User;
 
 class NormalGameBuilder implements GameBuilder {
 
@@ -71,21 +71,6 @@ class NormalGameBuilder implements GameBuilder {
         board.addPiece(new Pawn("Black", "g7"), "g7");
         board.addPiece(new Pawn("Black", "h7"), "h7");
 
-
-    }
-
-    //TODO How to collect info from database?
-    public void buildPlayers() {
-
-    }
-
-    @Override
-    public void constructBoard() {
-
-    }
-
-    @Override
-    public void addPlayers() {
 
     }
 
