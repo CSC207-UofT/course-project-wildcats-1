@@ -4,18 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
 import Interface.Database;
 import android.view.View;
+
 
 // Controls user input for the Game page.
 public class GameActivity extends AppCompatActivity {
 
     private TextView txt_playerWhite, txt_playerBlack;
     private String username, userid;
-    private View board;
+    private View boardView;
     private float[] touchLoc = new float[2];
+
+    private ImageView pawn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +29,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         // find the 8x8 board on the screen
-        board = findViewById(R.id.img_board);
-        board.setOnTouchListener(touchListener);
+        boardView = findViewById(R.id.img_board);
+        boardView.setOnTouchListener(touchListener);
+
+        pawn = findViewById(R.id.img_pawnW1);
+
+
         gameLoop();
 
 
@@ -40,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
             if (me.getActionMasked() == MotionEvent.ACTION_DOWN){
                 touchLoc[0] = me.getX();
                 touchLoc[1] = me.getY();
+                pawn.setImageResource(R.drawable.bishop_black);
             }
             System.out.println(boardCordConvert(touchLoc[0], touchLoc[1], true));
             return false;
@@ -76,9 +85,9 @@ public class GameActivity extends AppCompatActivity {
      * @param isWhite true if the board is being viewed from white side, false otherwise
      */
     private String boardCordConvert(float x, float y, boolean isWhite){
-        float boardSize = board.getHeight();
+        float boardSize = boardView.getHeight();
         float squareSize = boardSize/8;
-        final char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+        final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         final char[] nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
         char letter, num;
 
