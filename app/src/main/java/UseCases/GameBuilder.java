@@ -5,9 +5,7 @@ package UseCases;
  */
 interface GameBuilder {
 
-    public void constructBoard();
-
-    public void addPlayers();
+    public void buildBoard();
 
     public GameManager getGame();
 

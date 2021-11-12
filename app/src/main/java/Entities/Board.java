@@ -23,18 +23,22 @@ public class Board {
     }
 
     /**
-     * Removes a piece on the board at a specified square.
+     * Removes and returns a piece on the board at a specified square.
      *
-     * Precondition: The square is not empty
+     * Precondition: The square is not empty.
      *
      * @param squareID The string name of the square in which a piece is removed
+     *
+     * @return The removed piece
      */
-    public void removePiece(String squareID){
+    public Piece removePiece(String squareID){
 
         int rowNum = this.getRowNum(squareID);
         int colNum = this.getColNum(squareID);
 
+        Piece removedPiece = this.board[colNum][rowNum];
         this.board[colNum][rowNum] = null;
+        return removedPiece;
     }
 
     /**
@@ -61,6 +65,7 @@ public class Board {
     /**
      *
      * @param squareID The String representation of the square being checked
+     *
      * @return True if the square is empty and False otherwise
      */
     public boolean checkSquareEmpty(String squareID) {
