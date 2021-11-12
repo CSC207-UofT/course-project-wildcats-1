@@ -1,4 +1,4 @@
-package Interface;
+package Interfaces;
 
 public class Move extends Document {
 

@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.wildcats.ultimatechess.R;
-import Interface.Database;
-import Interface.User.UserRef;
+import Interfaces.Database;
+import Interfaces.User.UserRef;
 
 // Controls user input for the Start page.
 public class StartActivity extends AppCompatActivity {

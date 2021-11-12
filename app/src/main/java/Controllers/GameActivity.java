@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
-import Interface.Database;
+import Interfaces.Database;
 import android.view.View;
 
 

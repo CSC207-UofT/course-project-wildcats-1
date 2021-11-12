@@ -2,10 +2,10 @@ package Entities;
 
 public class Board {
 
-    private Piece[][] board;
+    private final Piece[][] board;
 
     public Board() {
-        Board board;
+        this.board = new Piece[8][8];
     }
 
     /**
@@ -79,7 +79,7 @@ public class Board {
     /**
      * @param squareID The String representation of the square on the board.
      *
-     * @return The piece at the specified square, or null.
+     * @return The piece at the specified square, or null if the square is empty.
      */
     public Piece checkSquare(String squareID) {
         return this.board[this.getColNum(squareID)][this.getRowNum(squareID)];

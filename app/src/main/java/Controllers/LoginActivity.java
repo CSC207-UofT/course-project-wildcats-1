@@ -7,9 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.wildcats.ultimatechess.R;
-import Interface.User;
-import Interface.Document;
-import Interface.Database;
+import Interfaces.User;
+import Interfaces.Document;
+import Interfaces.Database;
 
 // Controls user input for the Login page.
 public class LoginActivity extends AppCompatActivity {
