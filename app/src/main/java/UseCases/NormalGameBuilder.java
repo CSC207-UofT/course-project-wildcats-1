@@ -74,21 +74,6 @@ class NormalGameBuilder implements GameBuilder {
 
     }
 
-    //TODO How to collect info from database?
-    public void buildPlayers() {
-
-    }
-
-    @Override
-    public void constructBoard() {
-
-    }
-
-    @Override
-    public void addPlayers() {
-
-    }
-
     public GameManager getGame(){
 
         gm = new GameManager(board);
