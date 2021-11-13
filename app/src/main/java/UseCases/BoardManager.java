@@ -1,6 +1,8 @@
 package UseCases;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import Entities.Board;
 import Entities.King;
@@ -64,7 +66,6 @@ public class BoardManager {
      * @return True if the move is possible, otherwise False.
      */
     public boolean checkValidPawnMove(Board board, Pawn pawn, String loc) {
-        //TODO: check both spaces available are in front of two unit moves
 
         // integer of the difference between the column you're at, from the column you're going to.
         int colDiff = Arrays.asList(COLUMNS).indexOf(loc.substring(0, 1)) -
@@ -80,24 +81,33 @@ public class BoardManager {
         // True if only the pawn is black
         boolean blackTurn = pawn.getColor().equals("black");
 
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.movePiece(pawn.getLocation(), loc);
+
+        // True if the side belonging to the piece is in Checkmate after the move
+        boolean checked = checkChecked(changedBoard, pawn.getColor());
 
         // move 1 forward
         if (colDiff == 0 && rowDiff == 1 && whiteTurn && board.checkSquareEmpty(loc)) {
-            return true;
-        }
-        // move 2 forward
-        else if (colDiff == 0 && rowDiff == 2 && whiteTurn && pawn.getPlayStatus() && board.checkSquareEmpty(loc)) {
-            return true;
+            return !checked;
         }
         // move 1 forward
-        else if (colDiff == 0 && rowDiff == -1 && blackTurn &&
-                board.checkSquareEmpty(loc)) {
-            return true;
+        else if (colDiff == 0 && rowDiff == -1 && blackTurn && board.checkSquareEmpty(loc)) {
+            return !checked;
         }
         // move 2 forward
-        else if (colDiff == 0 && rowDiff == -2 && blackTurn&&
+        else if (colDiff == 0 && rowDiff == 2 && whiteTurn &&
                 pawn.getPlayStatus() && board.checkSquareEmpty(loc)) {
-            return true;
+            String squareForward = loc.substring(0, 1) + 3;
+            return board.checkSquareEmpty(squareForward) && !checked;
+        }
+        // move 2 forward
+        else if (colDiff == 0 && rowDiff == -2 && blackTurn &&
+                pawn.getPlayStatus() && board.checkSquareEmpty(loc)) {
+            String squareForward = loc.substring(0, 1) + 6;
+            return board.checkSquareEmpty(squareForward) && !checked;
         }
         //  checking en passant & attack
         else if (Math.abs(colDiff) == 1 && rowDiff == 1 && whiteTurn) {
@@ -107,13 +117,13 @@ public class BoardManager {
             if (empty) {
                 String enemy_loc = loc.charAt(0) + pawn.getLocation().substring(1);
                 Piece poss_pawn = board.checkSquare(enemy_loc);
-                return (poss_pawn != null && poss_pawn.getColor().equals("black") &&
-                        poss_pawn instanceof Pawn && ((Pawn) poss_pawn).getMovedTwice());
+                return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("black") &&
+                        ((Pawn) poss_pawn).getMovedTwice() && !checked);
             }
             // attack
             else {
                 Piece poss_enemy = board.checkSquare(loc);
-                return (poss_enemy.getColor().equals("black"));
+                return (poss_enemy.getColor().equals("black") && !checked);
             }
         }
         //  checking attack & en passant
@@ -124,13 +134,13 @@ public class BoardManager {
             if (empty) {
                 String enemy_loc = loc.charAt(0) + pawn.getLocation().substring(1);
                 Piece poss_pawn = board.checkSquare(enemy_loc);
-                return (poss_pawn != null && poss_pawn.getColor().equals("white") &&
-                        poss_pawn instanceof Pawn && ((Pawn) poss_pawn).getMovedTwice());
+                return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("white") &&
+                        ((Pawn) poss_pawn).getMovedTwice() && !checked);
             }
             // attack
             else {
                 Piece poss_enemy = board.checkSquare(loc);
-                return (poss_enemy.getColor().equals("white"));
+                return (poss_enemy.getColor().equals("white") && !checked);
             }
 
         } else {
@@ -160,13 +170,21 @@ public class BoardManager {
             enemyColour = "black";
         } else if (knight.getColor().equals("black")) {
             enemyColour = "white";
-
         }
+
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.movePiece(knight.getLocation(), loc);
+
+        // True if the side belonging to the piece is in Checkmate after the move
+        boolean checked = checkChecked(changedBoard, knight.getColor());
+
         // When the move attempted is L shaped from the origin
         if ((Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 1) ||
                 (Math.abs(rowDiff) == 1 && Math.abs(colDiff) == 2)) {
-            return board.checkSquareEmpty(loc) ||
-                    board.checkSquare(loc).getColor().equals(enemyColour);
+            return board.checkSquareEmpty(loc) && !checked ||
+                    board.checkSquare(loc).getColor().equals(enemyColour) && !checked;
         } else {
             return false;
         }
@@ -196,6 +214,14 @@ public class BoardManager {
             enemyColour = "white";
         }
 
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.movePiece(piece.getLocation(), loc);
+
+        // True if the side belonging to the piece is in Checkmate after the move
+        boolean checked = checkChecked(changedBoard, piece.getColor());
+
         // When the horizontal & vertical shift are equal in magnitude.
         if (Math.abs(colDiff) == Math.abs(rowDiff)) {
             int col =
@@ -204,6 +230,7 @@ public class BoardManager {
 
             boolean emptySquare;
             // check every horizontal square in front of the Bishop until the destination loc.
+
             for (int i = 1; i <= Math.abs(rowDiff); i++) {
                 if (rowDiff > 0) {
                     row += 1;
@@ -223,10 +250,10 @@ public class BoardManager {
                 }
                 // attempting an attack at target location
                 else if (!emptySquare) {
-                    return board.checkSquare(loc).getColor().equals(enemyColour);
+                    return board.checkSquare(loc).getColor().equals(enemyColour) && !checked;
                 }
             }
-            return true;
+            return !checked;
         } else {
             return false;
         }
@@ -259,6 +286,14 @@ public class BoardManager {
             enemyColour = "white";
         }
 
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.movePiece(piece.getLocation(), loc);
+
+        // True if the side belonging to the piece is in Checkmate after the move
+        boolean checked = checkChecked(changedBoard, piece.getColor());
+
         // Boolean representing whether a vertical move is attempted.
         if (rowDiff != 0 && colDiff == 0) {
             int col =
@@ -281,10 +316,10 @@ public class BoardManager {
                 }
                 // attempting an attack at target location
                 else if (!emptySquare) {
-                    return board.checkSquare(loc).getColor().equals(enemyColour);
+                    return board.checkSquare(loc).getColor().equals(enemyColour) && !checked;
                 }
             }
-            return true;
+            return !checked;
         }
         // Boolean representing whether a horizontal move is attempted.
         else if (colDiff != 0 && rowDiff == 0) {
@@ -308,10 +343,10 @@ public class BoardManager {
                 }
                 // attempting an attack at target location
                 else if (!emptySquare) {
-                    return board.checkSquare(loc).getColor().equals(enemyColour);
+                    return board.checkSquare(loc).getColor().equals(enemyColour) && !checked;
                 }
             }
-            return true;
+            return !checked;
         } else {
             return false;
         }
@@ -338,8 +373,6 @@ public class BoardManager {
      * @return True if the move is possible, otherwise False.
      */
     public boolean checkValidKingMove (Board board, King king, String loc) {
-        //TODO check King
-
         // The difference between the row you're going to, and the row you're at.
         int rowDiff = Integer.parseInt(loc.substring(1)) -
                 Integer.parseInt(king.getLocation().substring(1));
@@ -355,7 +388,15 @@ public class BoardManager {
             enemyColour = "white";
         }
 
-        if (rowDiff <= 1 && rowDiff >= -1 && colDiff <= 1 && colDiff >= -1) {
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.movePiece(king.getLocation(), loc);
+
+        // True if the side belonging to the piece is in Checkmate after the move
+        boolean checked = checkChecked(changedBoard, king.getColor());
+
+        if (rowDiff <= 1 && rowDiff >= -1 && colDiff <= 1 && colDiff >= -1 && !checked) {
             return board.checkSquareEmpty(loc) ||
                     board.checkSquare(loc).getColor().equals(enemyColour);
         } else {
@@ -367,12 +408,12 @@ public class BoardManager {
      * Return True if the Board is currently facing a Checkmate scenario
      * by any of the opposing side's pieces for the side of the parameter <color>.
      *
-     * @param board The Board object on which the Checkmate state will be determined
-     * @param color The color of the side for which a Checkmate state will be checked for.
-     * @return True if the Board is currently in a Checkmate state, otherwise False.
+     * @param board The Board object on which the Checked state will be determined
+     * @param color The Color of the side for which a Checked state will be checked for.
+     * @return True if the Board is currently in a Checked state, otherwise False.
      */
-    public boolean checkCheckmate(Board board, String color) {
-        String kingLoc = findKing(board, color).getColor();
+    public boolean checkChecked(Board board, String color) {
+        String kingLoc = Objects.requireNonNull(findKing(board, color)).getLocation();
         boolean checkmate;
 
         for (int c = 0; c <= 7; c++) {
@@ -385,11 +426,21 @@ public class BoardManager {
             }
         }
         return false;
-
     }
 
     /**
-     * Find the King piece within this Board and return it.
+     *
+     *
+     * @param board The Board object on which the Checkmate will be determined.
+     * @param color The Color of the for which a Checkmate will be determined.
+     * @return True if the player of the last turn taken is Checkmated, otherwise False.
+     */
+    public boolean checkCheckmated(Board board, String color) {
+        return checkChecked(board, color) && !checkMoves(board, color);
+    }
+
+    /**
+     * Find the King piece within this Board that belongs to the player with <color> and return it.
      *
      * @param board The Board object on which the King piece will be found.
      * @param color The color of the King that is to be found.
@@ -407,6 +458,40 @@ public class BoardManager {
             }
         }
         return null;
+    }
+
+    /**
+     * Return True if there exists at least one piece for the player of <color> than can move
+     *
+     * @param board The Board object on which a possible piece move will be calculated.
+     * @param color The color of Player's pieces to be analyzed for possible moves.
+     * @return True if the player of <color> has a single legal move.
+     */
+    private boolean checkMoves(Board board, String color) {
+        ArrayList<Piece> pieces = new ArrayList<>();
+        ArrayList<String> squares = new ArrayList<>();
+        String squareID;
+
+        for (int c = 0; c <= 7; c++) {
+            for (int r = 0; r <= 7; r++) {
+                squareID = COLUMNS[c] + ROWS[r];
+                squares.add(squareID);
+                Piece piece = board.checkSquare(squareID);
+                if (piece.getColor().equals(color)) {
+                    pieces.add(piece);
+                }
+            }
+        }
+        for (int i = 0; i < pieces.size(); i ++) {
+            Piece piece = pieces.get(i);
+            for (int s = 0; s < squares.size(); s++) {
+                squareID = squares.get(s);
+                if (checkValidMove(board, piece.getLocation(), squareID)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

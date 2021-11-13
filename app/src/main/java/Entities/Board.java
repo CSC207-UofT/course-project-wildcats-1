@@ -2,10 +2,26 @@ package Entities;
 
 public class Board {
 
-    private final Piece[][] board;
+    private Piece[][] board;
 
     public Board() {
         this.board = new Piece[8][8];
+    }
+
+    /**
+     * Return this board's pieces as an array of an array of pieces.
+     *
+     * @return This board object's pieces.
+     */
+    public Piece[][] getBoard() {
+        return this.board;
+    }
+
+    /**
+     * Set this Board's pieces to be those of <pieces>
+     */
+    public void setBoard (Piece[][] pieces) {
+        this.board = pieces;
     }
 
     /**
@@ -104,22 +120,31 @@ public class Board {
         int colNum = -1;
         String colLetter = squareID.substring(0, 1);
 
-        if (colLetter.equals("a")) {
-            colNum = 0;
-        } else if(colLetter.equals("b")) {
-            colNum = 1;
-        } else if(colLetter.equals("c")) {
-            colNum = 2;
-        } else if(colLetter.equals("d")) {
-            colNum = 3;
-        } else if(colLetter.equals("e")) {
-            colNum = 4;
-        } else if(colLetter.equals("f")) {
-            colNum = 5;
-        } else if(colLetter.equals("g")) {
-            colNum = 6;
-        } else if(colLetter.equals("h")) {
-            colNum = 7;
+        switch (colLetter) {
+            case "a":
+                colNum = 0;
+                break;
+            case "b":
+                colNum = 1;
+                break;
+            case "c":
+                colNum = 2;
+                break;
+            case "d":
+                colNum = 3;
+                break;
+            case "e":
+                colNum = 4;
+                break;
+            case "f":
+                colNum = 5;
+                break;
+            case "g":
+                colNum = 6;
+                break;
+            case "h":
+                colNum = 7;
+                break;
         }
         return colNum;
     }
