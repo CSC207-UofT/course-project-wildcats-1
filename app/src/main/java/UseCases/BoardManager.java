@@ -436,7 +436,18 @@ public class BoardManager {
      * @return True if the player of the last turn taken is Checkmated, otherwise False.
      */
     public boolean checkCheckmated(Board board, String color) {
-        return checkChecked(board, color) && !checkMoves(board, color);
+        return checkChecked(board, color) && checkNoMoves(board, color);
+    }
+
+    /**
+     *
+     *
+     * @param board The Board object on which the Stalemate will be determined.
+     * @param color The Color of the for which a Stalemate will be determined.
+     * @return True if the player of the last turn taken is Stalemate, otherwise False.
+     */
+    public boolean checkStalemated(Board board, String color) {
+        return !checkChecked(board, color) && checkNoMoves(board, color);
     }
 
     /**
@@ -467,7 +478,7 @@ public class BoardManager {
      * @param color The color of Player's pieces to be analyzed for possible moves.
      * @return True if the player of <color> has a single legal move.
      */
-    private boolean checkMoves(Board board, String color) {
+    private boolean checkNoMoves(Board board, String color) {
         ArrayList<Piece> pieces = new ArrayList<>();
         ArrayList<String> squares = new ArrayList<>();
         String squareID;
@@ -487,11 +498,11 @@ public class BoardManager {
             for (int s = 0; s < squares.size(); s++) {
                 squareID = squares.get(s);
                 if (checkValidMove(board, piece.getLocation(), squareID)) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
 }
