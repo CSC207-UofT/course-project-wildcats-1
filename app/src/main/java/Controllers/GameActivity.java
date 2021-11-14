@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
 import Interfaces.Database;
+import UseCases.BoardUpdator;
+import UseCases.GameBuildDirector;
+import UseCases.GameManager;
+import UseCases.NormalGameBuilder;
+
 import android.view.View;
 
 
@@ -20,6 +26,12 @@ public class GameActivity extends AppCompatActivity {
     private float[] touchLoc = new float[2];
 
     private ImageView pawn;
+    private TableLayout board;
+    private PieceLayoutManager boardManager;
+    private GameManager gameManager;
+    private GameBuildDirector gameBuilder;
+    private BoardUpdator boardUpdator = new BoardUpdator();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +44,14 @@ public class GameActivity extends AppCompatActivity {
         boardView = findViewById(R.id.img_board);
         boardView.setOnTouchListener(touchListener);
 
-        pawn = findViewById(R.id.img_pawnW1);
+        pawn = findViewById(R.id.a2);
 
+        boardManager = new PieceLayoutManager(this);
+
+        gameBuilder = new GameBuildDirector(new NormalGameBuilder());
+        gameBuilder.Construct();
+
+        gameManager = gameBuilder.getGame();
 
         gameLoop();
 
@@ -48,7 +66,8 @@ public class GameActivity extends AppCompatActivity {
             if (me.getActionMasked() == MotionEvent.ACTION_DOWN){
                 touchLoc[0] = me.getX();
                 touchLoc[1] = me.getY();
-                pawn.setImageResource(R.drawable.bishop_black);
+                pawn.setImageResource(R.drawable.bishop_white);
+                boardUpdator.updateBoard(gameManager.getBoard(), boardManager);
             }
             System.out.println(boardCordConvert(touchLoc[0], touchLoc[1], true));
             return false;

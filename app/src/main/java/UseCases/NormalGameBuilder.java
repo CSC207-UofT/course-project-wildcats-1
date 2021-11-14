@@ -9,7 +9,7 @@ import Entities.Queen;
 import Entities.Rook;
 import Interfaces.User;
 
-class NormalGameBuilder implements GameBuilder {
+public class NormalGameBuilder implements GameBuilder {
 
     private GameManager gm;
     private Board board = new Board();
