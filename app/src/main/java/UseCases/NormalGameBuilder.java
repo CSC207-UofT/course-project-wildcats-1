@@ -20,7 +20,6 @@ public class NormalGameBuilder implements GameBuilder {
      * Creates Pieces to add to the board for a normal chess game.
      */
     public void buildBoard(){
-        //TODO Create pieces for each player and place on board
         this.buildWhiteBoard();
         this.buildBlackBoard();
     }
@@ -74,11 +73,15 @@ public class NormalGameBuilder implements GameBuilder {
 
     }
 
+    /**
+     *
+     * @return a GameManager with a completed board
+     */
     public GameManager getGame(){
 
         gm = new GameManager(board);
-        gm.setUpWhite(this.whitePlayer);
-        gm.setUpBlack(this.blackPlayer);
+//        gm.setUpWhite(this.whitePlayer);
+//        gm.setUpBlack(this.blackPlayer);
 
         return gm;
     }

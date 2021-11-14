@@ -1,5 +1,8 @@
 package UseCases;
 
+/**
+ * GameBuildDirector constructs the GameManager when given a specific builder to use.
+ */
 public class GameBuildDirector {
 
     private GameBuilder builder;
