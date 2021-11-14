@@ -27,13 +27,13 @@ public class GameManager {
         this.playerWhiteInTurn = true;
     }
 
-    public void setUpWhite(User white) {
-        playerWhite = white;
-    }
-
-    public void setUpBlack(User black) {
-        playerBlack = black;
-    }
+//    public void setUpWhite(User white) {
+//        playerWhite = white;
+//    }
+//
+//    public void setUpBlack(User black) {
+//        playerBlack = black;
+//    }
 
     public void endGame() {
 
@@ -67,12 +67,4 @@ public class GameManager {
             this.playerWhiteInTurn = true;
         }
     }
-
-    /**
-     * @param pawn The pawn to be moved.
-     * @param loc The location to which the move should be attempted.
-     * @return True if the pawn move is possible, otherwise False.
-     */
-
-
 }
