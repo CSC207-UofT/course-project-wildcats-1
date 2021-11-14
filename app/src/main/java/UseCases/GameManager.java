@@ -10,7 +10,7 @@ public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
-    private User playerWhite, playerBlack;
+//    private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
 
     /**
@@ -19,6 +19,8 @@ public class GameManager {
      */
     public GameManager(Board startBoard) {
         this.board = startBoard;
+        this.whitePiecesOut = new ArrayList<>();
+        this.blackPiecesOut = new ArrayList<>();
     }
 
     public void startGame() {
@@ -66,5 +68,21 @@ public class GameManager {
         }else{
             this.playerWhiteInTurn = true;
         }
+    }
+
+    /**
+     *
+     * @return true if it is the white player's turn and false otherwise
+     */
+    public boolean isPlayerWhiteInTurn(){
+        return this.playerWhiteInTurn;
+    }
+
+    public ArrayList<Piece> getWhitePiecesOut(){
+        return this.whitePiecesOut;
+    }
+
+    public ArrayList<Piece> getBlackPiecesOut(){
+        return this.whitePiecesOut;
     }
 }
