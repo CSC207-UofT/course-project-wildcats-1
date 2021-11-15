@@ -68,11 +68,4 @@ public class GameManager {
         }
     }
 
-    /**
-     * @param pawn The pawn to be moved.
-     * @param loc The location to which the move should be attempted.
-     * @return True if the pawn move is possible, otherwise False.
-     */
-
-
 }
