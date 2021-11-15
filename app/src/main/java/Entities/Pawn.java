@@ -40,4 +40,12 @@ public class Pawn extends Piece {
         this.unmoved = false;
     }
 
+    /**
+     * Mutate the movedTwice attribute to true, to indicate that this Pawn object has double-stepped.
+     */
+    public void movedTwice(){
+        this.movedTwo = true;
+    }
+
+
 }

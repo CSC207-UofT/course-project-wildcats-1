@@ -2,8 +2,7 @@ package UseCases;
 
 import java.util.ArrayList;
 
-import Entities.Board;
-import Entities.Piece;
+import Entities.*;
 import Interfaces.User;
 
 public class GameManager {
@@ -63,6 +62,15 @@ public class GameManager {
             }
         }
         board.movePiece(startLoc, targetLoc);
+        Piece toUpdate = board.checkSquare(targetLoc);
+        toUpdate.move(targetLoc);
+        if(toUpdate instanceof Pawn){
+            if(Math.abs(Integer.valueOf(startLoc.substring(1))
+                    - Integer.valueOf(targetLoc.substring(1))) == 2){
+                ((Pawn) toUpdate).movedTwice();
+            }
+        }
+
         if(this.playerWhiteInTurn){
             this.playerWhiteInTurn = false;
         }else{
