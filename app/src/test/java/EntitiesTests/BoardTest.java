@@ -21,9 +21,9 @@ public class BoardTest {
         assertSame(pc, bd.checkSquare("d5"));
         assertNull(bd.checkSquare("a1"));
 
-        Piece expected = bd.removePiece("d5");
+        Piece actual = bd.removePiece("d5");
 
-        assertEquals(pc, expected);
+        assertEquals(pc, actual);
         assertNull(bd.checkSquare("d5"));
     }
 
