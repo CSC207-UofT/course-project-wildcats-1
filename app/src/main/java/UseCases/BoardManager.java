@@ -20,7 +20,7 @@ public class BoardManager {
      * Letters representing the chess board columns.
      */
     private final String[] COLUMNS =
-            new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
     /**
      * Integers representing the chess board rows.
      */
@@ -87,7 +87,7 @@ public class BoardManager {
         changedBoard.movePiece(pawn.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
-        boolean checked = checkChecked(changedBoard, pawn.getColor());
+        boolean checked = false;//checkChecked(changedBoard, pawn.getColor());
 
         // move 1 forward
         if (colDiff == 0 && rowDiff == 1 && whiteTurn && board.checkSquareEmpty(loc)) {
@@ -178,7 +178,7 @@ public class BoardManager {
         changedBoard.movePiece(knight.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
-        boolean checked = checkChecked(changedBoard, knight.getColor());
+        boolean checked = false;//checkChecked(changedBoard, knight.getColor());
 
         // When the move attempted is L shaped from the origin
         if ((Math.abs(rowDiff) == 2 && Math.abs(colDiff) == 1) ||
