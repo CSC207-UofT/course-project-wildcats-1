@@ -9,9 +9,11 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
 import Interfaces.Database;
+import UseCases.BoardManager;
 import UseCases.BoardUpdator;
 import UseCases.GameBuildDirector;
 import UseCases.GameManager;
+import UseCases.MoveBuffer;
 import UseCases.NormalGameBuilder;
 
 import android.view.View;
@@ -27,10 +29,13 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView pawn;
     private TableLayout board;
-    private PieceLayoutManager boardManager;
+    private PieceLayoutManager layoutManager;
     private GameManager gameManager;
     private GameBuildDirector gameBuilder;
     private BoardUpdator boardUpdator = new BoardUpdator();
+    private MoveBuffer moveBuffer;
+    private String tempMove;
+    private BoardManager boardManager = new BoardManager();
 
 
     @Override
@@ -46,12 +51,18 @@ public class GameActivity extends AppCompatActivity {
 
         pawn = findViewById(R.id.a2);
 
-        boardManager = new PieceLayoutManager(this);
+        layoutManager = new PieceLayoutManager(this);
 
         gameBuilder = new GameBuildDirector(new NormalGameBuilder());
         gameBuilder.Construct();
 
         gameManager = gameBuilder.getGame();
+
+        moveBuffer = new MoveBuffer(this);
+
+        boardManager.checkValidMove(gameManager.getBoard(), "e2", "e4");
+//        boardManager.checkValidMove(gameManager.getBoard(), "f1", "c3");
+//        boardManager.checkValidMove(gameManager.getBoard(), "a2", "a7");
 
         gameLoop();
 
@@ -66,10 +77,17 @@ public class GameActivity extends AppCompatActivity {
             if (me.getActionMasked() == MotionEvent.ACTION_DOWN){
                 touchLoc[0] = me.getX();
                 touchLoc[1] = me.getY();
-                pawn.setImageResource(R.drawable.bishop_white);
-                boardUpdator.updateBoard(gameManager.getBoard(), boardManager);
+
             }
-            System.out.println(boardCordConvert(touchLoc[0], touchLoc[1], true));
+            tempMove = moveBuffer.addClick(boardCordConvert(touchLoc[0], touchLoc[1], true),
+                    gameManager.getBoard());
+            System.out.println(tempMove);
+            System.out.println("hiii");
+            if (tempMove!=null){
+                System.out.println("helloooo");
+//                System.out.println(boardManager.checkValidMove(gameManager.getBoard(), tempMove.substring(0,2), tempMove.substring(1)));
+                gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
+            }
             return false;
         }
 
@@ -81,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
         Database.fetch(Database.Collections.MOVES, docs -> {
 
             System.out.println("=== GAME LOOP ===");
-
+            boardUpdator.updateBoard(gameManager.getBoard(), layoutManager);
 
 
             // The game loop will check every second for new moves.
