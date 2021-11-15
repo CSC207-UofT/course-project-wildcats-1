@@ -82,6 +82,7 @@ public class Piece {
      */
     public void move(String location) {
         this.location = location;
+        this.unmoved = false;
     }
 
     /**
