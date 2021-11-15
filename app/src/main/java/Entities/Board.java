@@ -9,12 +9,16 @@ public class Board {
     }
 
     /**
-     * Return this board's pieces as an array of an array of pieces.
+     * Return a copy of this board as an array of array of pieces.
      *
-     * @return This board object's pieces.
+     * @return A copy of this board object's pieces as an array of an array of pieces.
      */
     public Piece[][] getBoard() {
-        return this.board;
+        Piece[][] copyBoard = new Piece[8][8];
+        for (int i = 0; i < 8; i++) {
+            copyBoard[i] = this.board[i].clone();
+        }
+        return copyBoard;
     }
 
     /**

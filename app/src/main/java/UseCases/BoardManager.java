@@ -20,7 +20,7 @@ public class BoardManager {
      * Letters representing the chess board columns.
      */
     private final String[] COLUMNS =
-            new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
     /**
      * Integers representing the chess board rows.
      */
@@ -83,7 +83,7 @@ public class BoardManager {
 
         // Board state after the piece move
         Board changedBoard = new Board();
-        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.setBoard(board.getBoard());
         changedBoard.movePiece(pawn.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
@@ -174,7 +174,7 @@ public class BoardManager {
 
         // Board state after the piece move
         Board changedBoard = new Board();
-        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.setBoard(board.getBoard());
         changedBoard.movePiece(knight.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
@@ -216,7 +216,7 @@ public class BoardManager {
 
         // Board state after the piece move
         Board changedBoard = new Board();
-        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.setBoard(board.getBoard());
         changedBoard.movePiece(piece.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
@@ -288,7 +288,8 @@ public class BoardManager {
 
         // Board state after the piece move
         Board changedBoard = new Board();
-        changedBoard.setBoard(board.getBoard().clone());
+
+        changedBoard.setBoard(board.getBoard());
         changedBoard.movePiece(piece.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
@@ -390,7 +391,7 @@ public class BoardManager {
 
         // Board state after the piece move
         Board changedBoard = new Board();
-        changedBoard.setBoard(board.getBoard().clone());
+        changedBoard.setBoard(board.getBoard());
         changedBoard.movePiece(king.getLocation(), loc);
 
         // True if the side belonging to the piece is in Checkmate after the move
