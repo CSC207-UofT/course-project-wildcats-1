@@ -72,6 +72,7 @@ public class BoardManager {
                 Arrays.asList(COLUMNS).indexOf(pawn.getLocation().substring(0, 1));
 
         // The difference between the row you're at, from the row you're going to.
+        System.out.println(loc);
         int rowDiff = Integer.parseInt(loc.substring(1)) -
                 Integer.parseInt(pawn.getLocation().substring(1));
 
@@ -432,7 +433,7 @@ public class BoardManager {
             return true;
         }
 
-            boolean checkmate;
+        boolean checkmate;
 
         for (int c = 0; c <= 7; c++) {
             for (int r = 0; r <= 7; r++) {

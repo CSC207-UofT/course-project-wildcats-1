@@ -60,7 +60,9 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        boardManager.checkValidMove(gameManager.getBoard(), "a2", "a3");
+        boardManager.checkValidMove(gameManager.getBoard(), "e2", "e4");
+//        boardManager.checkValidMove(gameManager.getBoard(), "f1", "c3");
+//        boardManager.checkValidMove(gameManager.getBoard(), "a2", "a7");
 
         gameLoop();
 
@@ -83,8 +85,8 @@ public class GameActivity extends AppCompatActivity {
             System.out.println("hiii");
             if (tempMove!=null){
                 System.out.println("helloooo");
-                System.out.println(boardManager.checkValidMove(gameManager.getBoard(), tempMove.substring(0,2), tempMove.substring(1)));
-                gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(1));
+//                System.out.println(boardManager.checkValidMove(gameManager.getBoard(), tempMove.substring(0,2), tempMove.substring(1)));
+                gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
             }
             return false;
         }
