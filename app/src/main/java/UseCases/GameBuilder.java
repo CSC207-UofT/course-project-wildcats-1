@@ -3,11 +3,9 @@ package UseCases;
 /**
  * An interface for building a game and its GameManager.
  */
-interface GameBuilder {
+public interface GameBuilder {
 
-    public void constructBoard();
-
-    public void addPlayers();
+    public void buildBoard();
 
     public GameManager getGame();
 

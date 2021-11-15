@@ -5,7 +5,27 @@ public class Board {
     private Piece[][] board;
 
     public Board() {
-        Board board;
+        this.board = new Piece[8][8];
+    }
+
+    /**
+     * Return a copy of this board as an array of array of pieces.
+     *
+     * @return A copy of this board object's pieces as an array of an array of pieces.
+     */
+    public Piece[][] getBoard() {
+        Piece[][] copyBoard = new Piece[8][8];
+        for (int i = 0; i < 8; i++) {
+            copyBoard[i] = this.board[i].clone();
+        }
+        return copyBoard;
+    }
+
+    /**
+     * Set this Board's pieces to be those of <pieces>
+     */
+    public void setBoard (Piece[][] pieces) {
+        this.board = pieces;
     }
 
     /**
@@ -23,18 +43,22 @@ public class Board {
     }
 
     /**
-     * Removes a piece on the board at a specified square.
+     * Removes and returns a piece on the board at a specified square.
      *
-     * Precondition: The square is not empty
+     * Precondition: The square is not empty.
      *
      * @param squareID The string name of the square in which a piece is removed
+     *
+     * @return The removed piece
      */
-    public void removePiece(String squareID){
+    public Piece removePiece(String squareID){
 
         int rowNum = this.getRowNum(squareID);
         int colNum = this.getColNum(squareID);
 
+        Piece removedPiece = this.board[colNum][rowNum];
         this.board[colNum][rowNum] = null;
+        return removedPiece;
     }
 
     /**
@@ -61,6 +85,7 @@ public class Board {
     /**
      *
      * @param squareID The String representation of the square being checked
+     *
      * @return True if the square is empty and False otherwise
      */
     public boolean checkSquareEmpty(String squareID) {
@@ -74,7 +99,7 @@ public class Board {
     /**
      * @param squareID The String representation of the square on the board.
      *
-     * @return The piece at the specified square, or null.
+     * @return The piece at the specified square, or null if the square is empty.
      */
     public Piece checkSquare(String squareID) {
         return this.board[this.getColNum(squareID)][this.getRowNum(squareID)];
@@ -99,22 +124,31 @@ public class Board {
         int colNum = -1;
         String colLetter = squareID.substring(0, 1);
 
-        if (colLetter.equals("a")) {
-            colNum = 0;
-        } else if(colLetter.equals("b")) {
-            colNum = 1;
-        } else if(colLetter.equals("c")) {
-            colNum = 2;
-        } else if(colLetter.equals("d")) {
-            colNum = 3;
-        } else if(colLetter.equals("e")) {
-            colNum = 4;
-        } else if(colLetter.equals("f")) {
-            colNum = 5;
-        } else if(colLetter.equals("g")) {
-            colNum = 6;
-        } else if(colLetter.equals("h")) {
-            colNum = 7;
+        switch (colLetter) {
+            case "a":
+                colNum = 0;
+                break;
+            case "b":
+                colNum = 1;
+                break;
+            case "c":
+                colNum = 2;
+                break;
+            case "d":
+                colNum = 3;
+                break;
+            case "e":
+                colNum = 4;
+                break;
+            case "f":
+                colNum = 5;
+                break;
+            case "g":
+                colNum = 6;
+                break;
+            case "h":
+                colNum = 7;
+                break;
         }
         return colNum;
     }

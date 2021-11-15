@@ -2,10 +2,10 @@ package Controllers;
 
 import android.os.Handler;
 import java.util.concurrent.ThreadLocalRandom;
-import Interface.Database;
-import Interface.Document;
-import Interface.Game;
-import Interface.User.UserRef;
+import Interfaces.Database;
+import Interfaces.Document;
+import Interfaces.Game;
+import Interfaces.User.UserRef;
 
 // Responsible to connect players together to play a game.
 public class Matchmaker {

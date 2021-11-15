@@ -1,4 +1,4 @@
-package Interface;
+package Interfaces;
 
 import com.google.firebase.firestore.DocumentId;
 
