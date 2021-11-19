@@ -19,4 +19,12 @@ public class Knight extends Piece {
         }
     }
 
+    @Override
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Knight(this.color, this.location);
+    }
+
 }

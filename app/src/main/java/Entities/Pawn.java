@@ -47,5 +47,13 @@ public class Pawn extends Piece {
         this.movedTwo = true;
     }
 
+    @Override
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Pawn(this.color, this.location);
+    }
+
 
 }
