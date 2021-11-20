@@ -16,26 +16,25 @@ public class MoveBuffer {
         this.activity = (Activity) context;
     }
     public String addClick(String cord, Board board){
-        System.out.println(this.click1);
-        System.out.println(this.click2);
-        if (this.click1==null){
-            if (!board.checkSquareEmpty(cord)) {
+        if (this.click1==null && !board.checkSquareEmpty(cord)) {
                 this.click1 = cord;
-            }
+                System.out.println("CLICK 1: " + this.click1);
         }
-        else{
-           if (boardManager.checkValidMove(board, this.click1,cord)){
+        else if (this.click1 != null && !this.click1.equals(cord) &&
+                boardManager.checkValidMove(board, this.click1, cord)) {
                this.click2 = cord;
+               System.out.println("CLICK 2: " + this.click2);
+
                lastMove = this.click1 + this.click2;
                this.click1=null;
                this.click2=null;
                return lastMove;
            }
-           else{
-               this.click1=null;
-               this.click2=null;
+        else {
+            this.click1=null;
+            this.click2=null;
            }
-        }
+
         return null;
     }
 }
