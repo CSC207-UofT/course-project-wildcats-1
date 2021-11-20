@@ -12,12 +12,21 @@ public class Bishop extends Piece {
      */
     public Bishop(String color, String location) {
         super(color, location);
-        if (this.color.equals("White")){
+        if (this.color.equals("White")) {
             this.image = R.drawable.bishop_white;
-        }
-        else{
+        } else {
             this.image = R.drawable.bishop_black;
         }
     }
+
+
+    @Override
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Bishop(this.color, this.location);
+    }
+
 
 }

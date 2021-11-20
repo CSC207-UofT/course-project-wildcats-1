@@ -11,6 +11,8 @@ public class GameManager {
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
 //    private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
+    private boolean playerBlackInTurn;
+
 
     /**
      *
@@ -26,6 +28,8 @@ public class GameManager {
 //        Need to input players, place pieces, set white first
 
         this.playerWhiteInTurn = true;
+        this.playerBlackInTurn = false;
+
     }
 
 //    public void setUpWhite(User white) {
@@ -65,16 +69,18 @@ public class GameManager {
         Piece toUpdate = board.checkSquare(targetLoc);
         toUpdate.move(targetLoc);
         if(toUpdate instanceof Pawn){
-            if(Math.abs(Integer.valueOf(startLoc.substring(1))
-                    - Integer.valueOf(targetLoc.substring(1))) == 2){
+            if(Math.abs(Integer.parseInt(startLoc.substring(1))
+                    - Integer.parseInt(targetLoc.substring(1))) == 2){
                 ((Pawn) toUpdate).movedTwice();
             }
         }
 
         if(this.playerWhiteInTurn){
             this.playerWhiteInTurn = false;
-        }else{
+//            this.playerBlackInTurn = true;
+        } else{
             this.playerWhiteInTurn = true;
+//            this.playerBlackInTurn = false;
         }
     }
 
