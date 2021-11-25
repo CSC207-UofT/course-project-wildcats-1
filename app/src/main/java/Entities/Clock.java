@@ -1,6 +1,5 @@
 package Entities;
 
-
 public class Clock {
     private int hours;
     private int mins;
