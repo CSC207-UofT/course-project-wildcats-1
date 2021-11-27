@@ -2,43 +2,44 @@ package UseCases;
 
 import java.util.ArrayList;
 
-import Entities.*;
-import Interfaces.User;
+import Pieces.Board;
+import Pieces.King;
+import Pieces.Pawn;
+import Pieces.Piece;
+import Database.User;
+import Pieces.Queen;
 
 public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
-//    private User playerWhite, playerBlack;
+    private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
-    private boolean playerBlackInTurn;
-
+    private final String[] LETTER_COORDINATES;
 
     /**
      *
-     * @param startBoard The starting board containing all pieces needed to start the game.
+     * @param inputBoard The starting board containing all pieces needed to start the game.
      */
-    public GameManager(Board startBoard) {
-        this.board = startBoard;
-        this.whitePiecesOut = new ArrayList<>();
-        this.blackPiecesOut = new ArrayList<>();
+    public GameManager(Board inputBoard) {
+        this.board = inputBoard;
+        this.LETTER_COORDINATES = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+
     }
 
     public void startGame() {
 //        Need to input players, place pieces, set white first
 
         this.playerWhiteInTurn = true;
-        this.playerBlackInTurn = false;
-
     }
 
-//    public void setUpWhite(User white) {
-//        playerWhite = white;
-//    }
-//
-//    public void setUpBlack(User black) {
-//        playerBlack = black;
-//    }
+    public void setUpWhite(User white) {
+        playerWhite = white;
+    }
+
+    public void setUpBlack(User black) {
+        playerBlack = black;
+    }
 
     public void endGame() {
 
@@ -48,55 +49,38 @@ public class GameManager {
         return board;
     }
 
-    /**
-     * Moves a piece from startLoc to targetLoc and changes the turn to the opposing player.
-     *
-     * If a piece is removed, it is added to either whitePiecesOut or blackPiecesOut.
-     *
-     * @param startLoc  The starting location of the piece being moved.
-     * @param targetLoc The target location of the piece being moved.
-     */
-    public void makeMove(String startLoc, String targetLoc) {
-        if(!board.checkSquareEmpty(targetLoc)){
-            Piece removedPiece = board.removePiece(targetLoc);
-            if (removedPiece.getColor().equals("White")){
-                this.whitePiecesOut.add(removedPiece);
-            }else{
-                this.blackPiecesOut.add(removedPiece);
+    public void makeMove(String currSpot, String newSpot) {
+        Piece movingPiece = board.checkSquare(currSpot);
+        Object potentialPiece = board.checkSquare(newSpot);
+
+        MoveChecker checker = new MoveChecker();
+        Boolean condition1 = true;
+        // Boolean condition1 = checker.checkValidMove(board, currSpot, newSpot);
+        Boolean condition2 = true;
+        // condition2 = !Player.isChecked
+        if(condition1 && condition2){
+            board.movePiece(currSpot, newSpot);
+            // promote pawn
+            if (board.checkSquare(newSpot) instanceof Pawn && (board.getRowNum(newSpot) == 1
+                    || board.getRowNum(newSpot) == 8)){
+                String color = board.checkSquare(newSpot).getColor();
+                board.removePiece(newSpot);
+                board.addPiece(new Queen(color, newSpot), newSpot);
             }
-        }
-        board.movePiece(startLoc, targetLoc);
-        Piece toUpdate = board.checkSquare(targetLoc);
-        toUpdate.move(targetLoc);
-        if(toUpdate instanceof Pawn){
-            if(Math.abs(Integer.parseInt(startLoc.substring(1))
-                    - Integer.parseInt(targetLoc.substring(1))) == 2){
-                ((Pawn) toUpdate).movedTwice();
+            // castling
+            if(board.checkSquare(newSpot) instanceof King && ){
+
             }
+
         }
 
-        if(this.playerWhiteInTurn){
-            this.playerWhiteInTurn = false;
-//            this.playerBlackInTurn = true;
-        } else{
-            this.playerWhiteInTurn = true;
-//            this.playerBlackInTurn = false;
-        }
     }
 
     /**
-     *
-     * @return true if it is the white player's turn and false otherwise
+     * @param pawn The pawn to be moved.
+     * @param loc The location to which the move should be attempted.
+     * @return True if the pawn move is possible, otherwise False.
      */
-    public boolean isPlayerWhiteInTurn(){
-        return this.playerWhiteInTurn;
-    }
 
-    public ArrayList<Piece> getWhitePiecesOut(){
-        return this.whitePiecesOut;
-    }
 
-    public ArrayList<Piece> getBlackPiecesOut(){
-        return this.whitePiecesOut;
-    }
 }

@@ -110,7 +110,7 @@ public class Board {
      *
      * @param squareID The String representation of the square on the board.
      */
-    private int getRowNum(String squareID) {
+    public int getRowNum(String squareID) {
 
         return Integer.parseInt(squareID.substring(1)) - 1;
     }
