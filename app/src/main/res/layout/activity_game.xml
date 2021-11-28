@@ -611,9 +611,10 @@
 
     <TextView
         android:id="@+id/clockView"
-        android:layout_width="174dp"
-        android:layout_height="63dp"
+        android:layout_width="205dp"
+        android:layout_height="65dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
