@@ -92,6 +92,12 @@ public class GameManager {
         return this.playerWhiteInTurn;
     }
 
+
+    public static String updateClock(){
+        Clock egclock = new Clock(0,0,0);
+        return egclock.getTime();
+    }
+
     public ArrayList<Piece> getWhitePiecesOut(){
         return this.whitePiecesOut;
     }
