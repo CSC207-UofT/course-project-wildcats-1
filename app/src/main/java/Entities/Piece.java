@@ -101,6 +101,13 @@ public class Piece {
         this.location = "";
     }
 
+    /**
+     *
+     * @return whether this piece has not moved
+     */
+    public boolean getUnmoved(){
+        return this.unmoved;
+    }
 
 
 }

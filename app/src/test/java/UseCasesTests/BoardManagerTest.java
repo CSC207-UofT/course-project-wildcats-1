@@ -50,6 +50,17 @@ public class BoardManagerTest {
     }
 
     @Test(timeout = 50)
+    public void testPawnTake(){
+        Board bd = new Board();
+        Piece pc1 = new Pawn("White", "d4");
+        Piece pc2 = new Pawn("Black", "e5");
+        bd.addPiece(pc1, "d4");
+        bd.addPiece(pc2, "e5");
+
+        assertTrue(bm.checkValidMove(bd, "d4", "e5"));
+    }
+
+    @Test(timeout = 50)
     public void testPawnEnPassent(){
         Board bd = new Board();
         Piece pc1 = new Pawn("White", "d2");
