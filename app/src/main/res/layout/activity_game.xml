@@ -624,4 +624,13 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <EditText
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="time"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="139dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

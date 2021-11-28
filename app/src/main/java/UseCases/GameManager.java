@@ -9,7 +9,7 @@ public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
-//    private User playerWhite, playerBlack;
+    //    private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
     private boolean playerBlackInTurn;
 
@@ -57,8 +57,6 @@ public class GameManager {
      * @param targetLoc The target location of the piece being moved.
      */
     public void makeMove(String startLoc, String targetLoc) {
-
-
         if(!board.checkSquareEmpty(targetLoc)){
             Piece removedPiece = board.removePiece(targetLoc);
             if (removedPiece.getColor().equals("White")){
@@ -75,7 +73,6 @@ public class GameManager {
                     - Integer.parseInt(targetLoc.substring(1))) == 2){
                 ((Pawn) toUpdate).movedTwice();
             }
-            //TODO: change to pawn once moved one
         }
 
         if(this.playerWhiteInTurn){
