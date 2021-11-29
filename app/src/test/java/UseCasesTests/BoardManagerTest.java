@@ -50,6 +50,17 @@ public class BoardManagerTest {
     }
 
     @Test(timeout = 50)
+    public void testPawnTake(){
+        Board bd = new Board();
+        Piece pc1 = new Pawn("White", "d4");
+        Piece pc2 = new Pawn("Black", "e5");
+        bd.addPiece(pc1, "d4");
+        bd.addPiece(pc2, "e5");
+
+        assertTrue(bm.checkValidMove(bd, "d4", "e5"));
+    }
+
+    @Test(timeout = 50)
     public void testPawnEnPassent(){
         Board bd = new Board();
         Piece pc1 = new Pawn("White", "d2");
@@ -61,4 +72,20 @@ public class BoardManagerTest {
         bd.movePiece("e7", "e5");
         assertTrue(bm.checkValidMove(bd, "d5", "e6"));
     }
+
+    @Test(timeout = 50)
+    public void testKnight(){
+        Board bd = new Board();
+        Piece pc = new Knight("White", "b1");
+        bd.addPiece(pc, "b1");
+
+        assertTrue(bm.checkValidMove(bd, "b1", "c3"));
+        assertFalse(bm.checkValidMove(bd, "b1", "b3"));
+
+        Piece block = new Pawn("White", "c3");
+        bd.addPiece(block, "c3");
+
+        assertFalse(bm.checkValidMove(bd, "b1", "c3"));
+    }
+
 }
