@@ -9,24 +9,30 @@ public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
+
 //    private User playerWhite, playerBlack;
+
     private boolean playerWhiteInTurn;
-    private final String[] LETTER_COORDINATES;
+    private boolean playerBlackInTurn;
+
 
     /**
      *
-     * @param inputBoard The starting board containing all pieces needed to start the game.
+     * @param startBoard The starting board containing all pieces needed to start the game.
      */
-    public GameManager(Board inputBoard) {
-        this.board = inputBoard;
-        this.LETTER_COORDINATES = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-
+    public GameManager(Board startBoard) {
+        this.board = startBoard;
+        this.whitePiecesOut = new ArrayList<>();
+        this.blackPiecesOut = new ArrayList<>();
     }
 
     public void startGame() {
 //        Need to input players, place pieces, set white first
 
         this.playerWhiteInTurn = true;
+        this.playerBlackInTurn = false;
+
+
     }
 
 //    public void setUpWhite(User white) {
@@ -44,6 +50,7 @@ public class GameManager {
     public Board getBoard() {
         return board;
     }
+
 
 //    public void makeMove(String currSpot, String newSpot) {
 //        Piece movingPiece = board.checkSquare(currSpot);
@@ -208,8 +215,10 @@ public class GameManager {
                     ((Pawn) piece).clearMovedTwice();
                 }
             }
+
         }
     }
+
 
     /**
      *
@@ -217,10 +226,12 @@ public class GameManager {
      */
     public ArrayList<Piece> getWhitePiecesOut(){
         return this.whitePiecesOut;
+
     }
 
     /**
      *
+
      * @return an array list of eliminated black pieces.
      */
     public ArrayList<Piece> getBlackPiecesOut(){
@@ -231,9 +242,22 @@ public class GameManager {
      *
      * @return true if it is white player's turn and false otherwise.
      */
+
     public boolean isPlayerWhiteInTurn(){
         return this.playerWhiteInTurn;
     }
 
 
+    public static String updateClock(){
+        Clock egclock = new Clock(0,0,0);
+        return egclock.getTime();
+    }
+
+    public ArrayList<Piece> getWhitePiecesOut(){
+        return this.whitePiecesOut;
+    }
+
+    public ArrayList<Piece> getBlackPiecesOut(){
+        return this.whitePiecesOut;
+    }
 }

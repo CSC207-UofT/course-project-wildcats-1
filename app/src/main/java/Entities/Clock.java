@@ -10,4 +10,8 @@ public class Clock {
         this.mins = mins;
         this.secs = secs;
     }
+
+    public String getTime(){
+        return "00 00 01";
+    }
 }
