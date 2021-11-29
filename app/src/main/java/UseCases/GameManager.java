@@ -15,6 +15,17 @@ public class GameManager {
     private boolean playerWhiteInTurn;
     private boolean playerBlackInTurn;
 
+    /**
+     * Letters representing the chess board columns.
+     */
+    private final String[] COLUMNS =
+            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+    /**
+     * Integers representing the chess board rows.
+     */
+    private final int[] ROWS =
+            new int[]{1, 2, 3, 4, 5, 6, 7, 8};
+
 
     /**
      *
@@ -94,13 +105,13 @@ public class GameManager {
 
         //Check whether en passent was made
         if(movedPiece instanceof Pawn
-                && currSpot.substring(0, 1) != newSpot.substring(0, 1)
+                && !currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
                 && board.checkSquareEmpty(newSpot)){
             makeEnPassent(newSpot);
         //Check whether castling was made
         }else if(movedPiece instanceof King
                 && movedPiece.getUnmoved()
-                && (newSpot == "c1" || newSpot == "c8" || newSpot == "g1" || newSpot == "g8")){
+                && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot.equals("g8"))){
             this.makeCastle(newSpot);
         }
         //Place movedPiece in its new spot
@@ -206,7 +217,7 @@ public class GameManager {
         }else{
             enemyColor = "White";
         }
-        for(String column : LETTER_COORDINATES){
+        for(String column : COLUMNS){
             String colLetter = column;
             for(int i = 1; i < 9; ++i){
                 String squareToCheck = colLetter + String.valueOf(i);
@@ -253,11 +264,5 @@ public class GameManager {
         return egclock.getTime();
     }
 
-    public ArrayList<Piece> getWhitePiecesOut(){
-        return this.whitePiecesOut;
-    }
 
-    public ArrayList<Piece> getBlackPiecesOut(){
-        return this.whitePiecesOut;
-    }
 }
