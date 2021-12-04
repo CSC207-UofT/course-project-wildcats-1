@@ -1,5 +1,0 @@
-The app opens to a screen which allows you to select a single-player or multiplayer option. 
-
-If you select single-player, you will be assigned either white or black and start a chess game against a CPU (AI). You will take turns, moving a single piece to a valid spot each turn, a la a regular game of chess. When either you or the CPU puts the other in checkmate, a pop up shows who won the game. If you select to forfeit the game, a pop up shows that the CPU wins. The app then takes you back to the main menu to play another game or close the app.
-
-If you select multiplayer, you will be matched with someone running the app on another device and then you will be assigned either white or black. You will each take turns, moving a single piece to a valid spot each turn, a la a regular game of chess. When either you or your opponent puts the other in checkmate, a pop up shows who won the game. If you select to forfeit the game, a pop up shows that the other player wins the game. The app then takes you back to the main menu to play another game or close the app.
