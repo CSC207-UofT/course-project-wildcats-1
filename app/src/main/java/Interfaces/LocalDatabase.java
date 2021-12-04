@@ -19,7 +19,7 @@ public class LocalDatabase {
     }
 
     public void saveLoginInfo(String name, String password) {
-        db.execSQL("INSERT INTO TutorialsPoint VALUES('" + name + "','" + password + "');");
+        db.execSQL("INSERT INTO Login VALUES('" + name + "','" + password + "');");
     }
 
     public String[] getLoginInfo() {
