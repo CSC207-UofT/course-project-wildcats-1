@@ -11,12 +11,27 @@ public class Rook extends Piece {
      */
     public Rook(String color, String location) {
         super(color, location);
-        if (this.color.equals("White")){
+        if (this.color.equals("White")) {
             this.image = R.drawable.rook_white;
-        }
-        else{
+        } else {
             this.image = R.drawable.rook_black;
         }
     }
+
+    @Override
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Rook(this.color, this.location);
+    }
+
+    /**
+     * Mutate the unmoved attribute as false, to indicate that this Pawn object has moved.
+     */
+    public void moved() {
+        this.unmoved = false;
+    }
+
 
 }

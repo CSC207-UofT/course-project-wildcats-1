@@ -1,6 +1,9 @@
 package Controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -60,9 +63,10 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        boardManager.checkValidMove(gameManager.getBoard(), "e2", "e4");
-//        boardManager.checkValidMove(gameManager.getBoard(), "f1", "c3");
-//        boardManager.checkValidMove(gameManager.getBoard(), "a2", "a7");
+        CharSequence charSequence = new StringBuffer(GameManager.updateClock());
+        final TextView helloTextView = (TextView) findViewById(R.id.clockView);
+        helloTextView.setText(charSequence);
+
 
         gameLoop();
 
@@ -72,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
     // In this case, it will set touch location indexes to match where on the board was touched.
     // (0,0) is the top left of the board.
     View.OnTouchListener touchListener = new View.OnTouchListener(){
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent me){
             if (me.getActionMasked() == MotionEvent.ACTION_DOWN){
@@ -79,19 +84,15 @@ public class GameActivity extends AppCompatActivity {
                 touchLoc[1] = me.getY();
 
             }
-            tempMove = moveBuffer.addClick(boardCordConvert(touchLoc[0], touchLoc[1], true),
-                    gameManager.getBoard());
+            String coordinates = boardCoordConvert(touchLoc[0], touchLoc[1], true);
+            System.out.println("COORDINATES: " + coordinates);
+            tempMove = moveBuffer.addClick(coordinates, gameManager.getBoard());
             System.out.println(tempMove);
-            System.out.println("hiii");
             if (tempMove!=null){
-                System.out.println("helloooo");
-//                System.out.println(boardManager.checkValidMove(gameManager.getBoard(), tempMove.substring(0,2), tempMove.substring(1)));
                 gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
             }
             return false;
         }
-
-
     };
 
 
@@ -121,7 +122,7 @@ public class GameActivity extends AppCompatActivity {
      * @param y the y-coordinate of click
      * @param isWhite true if the board is being viewed from white side, false otherwise
      */
-    private String boardCordConvert(float x, float y, boolean isWhite){
+    private String boardCoordConvert(float x, float y, boolean isWhite){
         float boardSize = boardView.getHeight();
         float squareSize = boardSize/8;
         final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};

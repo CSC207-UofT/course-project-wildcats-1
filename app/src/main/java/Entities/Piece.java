@@ -56,11 +56,18 @@ public class Piece {
         return location;
     }
 
-    /** Return whether True if this Piece object has moved, otherwise return False.
-     * @return whether this Piece object has made its first move
+    /** Return whether True if this Piece object has not moved, otherwise return False.
+     * @return whether this Piece object has not made its first move
      */
     public boolean getPlayStatus() {
         return this.unmoved;
+    }
+
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Piece(this.color, this.location);
     }
 
     /** Return the elimination status of this Piece object.
@@ -94,6 +101,13 @@ public class Piece {
         this.location = "";
     }
 
+    /**
+     *
+     * @return whether this piece has not moved
+     */
+    public boolean getUnmoved(){
+        return this.unmoved;
+    }
 
 
 }

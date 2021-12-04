@@ -47,5 +47,20 @@ public class Pawn extends Piece {
         this.movedTwo = true;
     }
 
+    /**
+     * Mutate the movedTwice attribute to false, to indicate that this pawn cannot be taken by en passent.
+     */
+    public void clearMovedTwice(){
+        this.movedTwo = false;
+    }
+
+    @Override
+    /**
+     * @return a deep copy of this Piece object.
+     */
+    Piece getCopy() {
+        return new Pawn(this.color, this.location);
+    }
+
 
 }

@@ -16,7 +16,11 @@ public class Board {
     public Piece[][] getBoard() {
         Piece[][] copyBoard = new Piece[8][8];
         for (int i = 0; i < 8; i++) {
-            copyBoard[i] = this.board[i].clone();
+            for (int j = 0; j < 8; j++) {
+                if (this.board[i][j] != null) {
+                    copyBoard[i][j] = this.board[i][j].getCopy();
+                }
+            }
         }
         return copyBoard;
     }
