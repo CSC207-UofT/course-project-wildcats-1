@@ -105,7 +105,7 @@ public class GameManager {
 
         //Check whether en passent was made
         if(movedPiece instanceof Pawn
-fi                && !currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
+                && !currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
                 && board.checkSquareEmpty(newSpot)){
             makeEnPassent(newSpot);
         //Check whether castling was made
