@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import com.wildcats.ultimatechess.R;
+import Interfaces.LocalDatabase;
 import Interfaces.User;
 import Interfaces.Document;
 import Interfaces.Database;
@@ -16,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText eTxt_username, eTxt_password;
     private Button btn_login;
+
+    private LocalDatabase localDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         eTxt_username = findViewById(R.id.eTxt_username);
         eTxt_password = findViewById(R.id.eTxt_password);
         btn_login = findViewById(R.id.btn_login);
+
+        /*localDatabase = new LocalDatabase();
+        if (localDatabase.loginInfoSaved()) {
+            String name = localDatabase.getLoginInfo()[0];
+            String password = localDatabase.getLoginInfo()[1];
+            eTxt_username.setText(name);
+            eTxt_password.setText(password);
+        }*/
 
         // Run onLoginClicked() when the login button is clicked.
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         // Get username and password from the GUI.
         String username = eTxt_username.getText().toString();
         String password = eTxt_password.getText().toString();
+
+        /*if (!localDatabase.loginInfoSaved()) {
+            localDatabase.saveLoginInfo(username, password);
+        }*/
 
         // "fetch" gets documents from a collection in the database.
         // Once the docs are fetched, the method specified as a second parameter runs.
