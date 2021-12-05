@@ -3,12 +3,16 @@ package UseCases;
 import java.util.ArrayList;
 
 import Entities.*;
+import Interfaces.Database;
+import Interfaces.Move;
 import Interfaces.User;
 
 public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
+
+    private int moveNumber = 1;
 
 //    private User playerWhite, playerBlack;
 
@@ -102,6 +106,7 @@ public class GameManager {
      */
     public void makeMove(String currSpot, String newSpot){
         Piece movedPiece = board.removePiece(currSpot);
+        if (movedPiece == null) return;
 
         //Check whether en passent was made
         if(movedPiece instanceof Pawn
@@ -136,6 +141,11 @@ public class GameManager {
         }else{
             playerWhiteInTurn = true;
         }
+
+        String code = currSpot + newSpot;
+        Move move = new Move("", code, moveNumber);
+        moveNumber++;
+        Database.insert(Database.Collections.MOVES, move, ()->{});
     }
 
     /**
@@ -150,13 +160,13 @@ public class GameManager {
             rowNum -= 1;
             String takenLoc = colLetter + String.valueOf(rowNum);
             Piece removed = board.removePiece(takenLoc);
-            removed.eliminate();
+            //removed.eliminate();
             this.blackPiecesOut.add(removed);
         }else{
             rowNum += 1;
             String takenLoc = colLetter + String.valueOf(rowNum);
             Piece removed = board.removePiece(takenLoc);
-            removed.eliminate();
+            //removed.eliminate();
             this.whitePiecesOut.add(removed);
         }
     }
