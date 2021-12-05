@@ -15,6 +15,17 @@ public class GameManager {
     private boolean playerWhiteInTurn;
     private boolean playerBlackInTurn;
 
+    /**
+     * Letters representing the chess board columns.
+     */
+    private final String[] COLUMNS =
+            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+    /**
+     * Integers representing the chess board rows.
+     */
+    private final int[] ROWS =
+            new int[]{1, 2, 3, 4, 5, 6, 7, 8};
+
 
     /**
      *
@@ -206,7 +217,7 @@ public class GameManager {
         }else{
             enemyColor = "White";
         }
-        for(String column : LETTER_COORDINATES){
+        for(String column : COLUMNS){
             String colLetter = column;
             for(int i = 1; i < 9; ++i){
                 String squareToCheck = colLetter + String.valueOf(i);
@@ -253,11 +264,11 @@ public class GameManager {
         return egclock.getTime();
     }
 
-    public ArrayList<Piece> getWhitePiecesOut(){
+    /*public ArrayList<Piece> getWhitePiecesOut(){
         return this.whitePiecesOut;
     }
 
     public ArrayList<Piece> getBlackPiecesOut(){
         return this.whitePiecesOut;
-    }
+    }*/
 }
