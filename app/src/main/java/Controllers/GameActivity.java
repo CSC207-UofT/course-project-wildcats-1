@@ -1,5 +1,6 @@
 package Controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -61,6 +62,10 @@ public class GameActivity extends AppCompatActivity {
         gameManager = gameBuilder.getGame();
 
         moveBuffer = new MoveBuffer(this);
+
+        CharSequence charSequence = new StringBuffer(GameManager.updateClock());
+        final TextView helloTextView = (TextView) findViewById(R.id.clockView);
+        helloTextView.setText(charSequence);
 
 
         gameLoop();
