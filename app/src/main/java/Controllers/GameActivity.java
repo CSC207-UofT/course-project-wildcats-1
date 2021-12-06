@@ -12,6 +12,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
 import Interfaces.Database;
+import Interfaces.Document;
+import Interfaces.Move;
 import UseCases.BoardManager;
 import UseCases.BoardUpdator;
 import UseCases.GameBuildDirector;
@@ -20,9 +22,6 @@ import UseCases.MoveBuffer;
 import UseCases.NormalGameBuilder;
 
 import android.view.View;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 // Controls user input for the Game page.
@@ -42,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
     private MoveBuffer moveBuffer;
     private String tempMove;
     private BoardManager boardManager = new BoardManager();
+
+    private int moveNumber = 0;
 
 
     @Override
@@ -66,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        CharSequence charSequence = new StringBuffer(GameManager.update1Clock());
+        CharSequence charSequence = new StringBuffer(GameManager.updateClock());
         final TextView helloTextView = (TextView) findViewById(R.id.clockView);
         helloTextView.setText(charSequence);
 
@@ -105,17 +106,31 @@ public class GameActivity extends AppCompatActivity {
             System.out.println("=== GAME LOOP ===");
             boardUpdator.updateBoard(gameManager.getBoard(), layoutManager);
 
-
-            // The game loop will check every second for new moves.
-            // A new move is committed as the following:
-            // Database.insert(Database.Collections.MOVES, new Move(...), ()->{});
-
-            // Run this method recursively every 1000ms (1s).
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() { gameLoop(); }
-            }, 1000);
+            Database.fetch(Database.Collections.MOVES, (moves)->{
+                if (moves.size() > moveNumber) {
+                    Move lastMove = (Move)moves.get(0);
+                    int largestNumber = 0;
+                    for (Document doc : moves) {
+                        Move move  = (Move)doc;
+                        if (move.getNumber() > largestNumber) {
+                            largestNumber = move.getNumber();
+                            lastMove = move;
+                        }
+                    }
+                    String currSpot = new StringBuilder().append(
+                        lastMove.getCode().charAt(0)).append(lastMove.getCode().charAt(1)).toString();
+                    String newSpot = new StringBuilder().append(
+                        lastMove.getCode().charAt(2)).append(lastMove.getCode().charAt(3)).toString();
+                    gameManager.makeMove(currSpot, newSpot);
+                    moveNumber++;
+                }
+                // Run this method recursively every 1000ms (1s).
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() { gameLoop(); }
+                }, 1000);
+            });
         });
     }
     /**

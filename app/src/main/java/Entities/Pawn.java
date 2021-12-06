@@ -4,10 +4,11 @@ import com.wildcats.ultimatechess.R;
 
 public class Pawn extends Piece {
 
+
     /**
-     * A Boolean representing whether or not a Pawn object has made a 2 unit move.
+     * A PawnState representing whether or not the pawn is promoted.
      */
-    boolean movedTwo;
+    PawnState pawnState;
 
     /**
      * A new Pawn object with its own color and unique location.
@@ -17,34 +18,34 @@ public class Pawn extends Piece {
      */
     public Pawn(String color, String location) {
         super(color, location);
-        this.movedTwo = false;
         if (this.color.equals("White")){
             this.image = R.drawable.pawn_white;
         }
         else{
             this.image = R.drawable.pawn_black;
         }
+        this.pawnState = new NormalPawnState(this);
     }
 
     /** Return True if this Pawn object has moved two units, otherwise return False.
      * @return whether this Pawn object has moved two units.
      */
     public boolean getMovedTwice() {
-        return this.movedTwo;
-    }
-
-    /**
-     * Mutate the unmoved attribute as false, to indicate that this Pawn object has moved.
-     */
-    public void moved() {
-        this.unmoved = false;
+        return this.pawnState.getMovedTwice();
     }
 
     /**
      * Mutate the movedTwice attribute to true, to indicate that this Pawn object has double-stepped.
      */
     public void movedTwice(){
-        this.movedTwo = true;
+        this.pawnState.movedTwice();
+    }
+
+    /**
+     * Mutate the movedTwice attribute to false, to indicate that this pawn cannot be taken by en passent.
+     */
+    public void clearMovedTwice(){
+        this.pawnState.clearMovedTwice();
     }
 
     @Override
@@ -55,5 +56,24 @@ public class Pawn extends Piece {
         return new Pawn(this.color, this.location);
     }
 
+    /**
+     * Promotes this pawn.
+     */
+    public void promote(){
+        this.pawnState = new PromotedPawnState(this);
+        if (this.color.equals("White")){
+            this.image = R.drawable.queen_white;
+        }
+        else{
+            this.image = R.drawable.queen_black;
+        }
+    }
 
+    /**
+     *
+     * @return true if this pawn is promoted and false otherwise.
+     */
+    public boolean isPromoted() {
+        return this.pawnState.isPromoted();
+    }
 }

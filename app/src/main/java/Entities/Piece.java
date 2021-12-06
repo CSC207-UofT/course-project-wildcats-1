@@ -78,7 +78,7 @@ public class Piece {
     }
 
     /**
-     * @return thhe
+     * @return the image representing this piece.
      */
     public int getImage(){
         return image;
@@ -101,6 +101,13 @@ public class Piece {
         this.location = "";
     }
 
+    /**
+     *
+     * @return whether this piece has not moved
+     */
+    public boolean getUnmoved(){
+        return this.unmoved;
+    }
 
 
 }

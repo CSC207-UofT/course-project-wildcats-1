@@ -18,7 +18,7 @@ public class GameManagerTest {
 //    public void setUp(){
 //        bd = new Board();
 //        pc1 = new Queen("White", "d1");
-//        pc2 = new Queen("black", "d8");
+//        pc2 = new Queen("Black", "d8");
 //        bd.addPiece(pc1, "d1");
 //        bd.addPiece(pc2, "d8");
 //        gm = new GameManager(bd);
@@ -47,7 +47,7 @@ public class GameManagerTest {
     public void testMakeMove(){
         Board bd = new Board();
         Piece pc1 = new Queen("White", "d1");
-        Piece pc2 = new Queen("black", "d8");
+        Piece pc2 = new Queen("Black", "d8");
         bd.addPiece(pc1, "d1");
         bd.addPiece(pc2, "d8");
         GameManager gm = new GameManager(bd);
@@ -69,7 +69,7 @@ public class GameManagerTest {
     public void testMakeMoveTakePiece(){
         Board bd = new Board();
         Piece pc1 = new Queen("White", "d1");
-        Piece pc2 = new Queen("black", "d8");
+        Piece pc2 = new Queen("Black", "d8");
         bd.addPiece(pc1, "d1");
         bd.addPiece(pc2, "d8");
         GameManager gm = new GameManager(bd);

@@ -67,6 +67,11 @@ public class BoardManager {
      */
     public boolean checkValidPawnMove(Board board, Pawn pawn, String loc) {
 
+        // If the pawn is promoted, treat it with queen piece behavior
+        if (pawn.isPromoted()){
+            return this.checkValidQueenMove(board, pawn, loc);
+        }
+
         // integer of the difference between the column you're at, from the column you're going to.
         int colDiff = Arrays.asList(COLUMNS).indexOf(loc.substring(0, 1)) -
                 Arrays.asList(COLUMNS).indexOf(pawn.getLocation().substring(0, 1));
@@ -124,7 +129,8 @@ public class BoardManager {
                 Piece poss_pawn = board.checkSquare(enemy_loc);
                 return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("Black") &&
                         ((Pawn) poss_pawn).getMovedTwice() &&
-                        !checkChecked(changedBoard, pawn.getColor()));
+                        !checkChecked(changedBoard, pawn.getColor())&&
+                        !((Pawn) poss_pawn).isPromoted());
             }
             // attack
             else {
@@ -389,7 +395,7 @@ public class BoardManager {
      * @param loc The string location in chess-coordinates, to which the pawn is trying to move to.
      * @return True if the move is possible, otherwise False.
      */
-    public boolean checkValidQueenMove (Board board, Queen queen, String loc) {
+    public boolean checkValidQueenMove (Board board, Piece queen, String loc) {
         return checkValidRookMove(board, queen, loc) || checkValidBishopMove(board, queen, loc);
     }
 
@@ -592,6 +598,80 @@ public class BoardManager {
             }
         }
         return true;
+    }
+
+    /**
+     * Return true if the move is an en passent and false otherwise.
+     *
+     * @param board
+     * @param pawn
+     * @param loc
+     * @return
+     */
+    public boolean isEnPassent(Board board, Pawn pawn, String loc){
+        // integer of the difference between the column you're at, from the column you're going to.
+        int colDiff = Arrays.asList(COLUMNS).indexOf(loc.substring(0, 1)) -
+                Arrays.asList(COLUMNS).indexOf(pawn.getLocation().substring(0, 1));
+
+        // The difference between the row you're at, from the row you're going to.
+        int rowDiff = Integer.parseInt(loc.substring(1)) -
+                Integer.parseInt(pawn.getLocation().substring(1));
+
+        // True if only the pawn is White
+        boolean whiteTurn = pawn.getColor().equals("White");
+
+        // True if only the pawn is Black
+        boolean blackTurn = pawn.getColor().equals("Black");
+
+        // Board state after the piece move
+        Board changedBoard = new Board();
+        changedBoard.setBoard(board.getBoard());
+        changedBoard.movePiece(pawn.getLocation(), loc);
+        Piece toUpdate = changedBoard.checkSquare(loc);
+        System.out.println(toUpdate.getClass().getName());
+        toUpdate.move(loc);
+
+        //  checking en passant & attack
+        if (Math.abs(colDiff) == 1 && rowDiff == 1 && whiteTurn) {
+            boolean empty = board.checkSquareEmpty(loc);
+
+            // en passant
+            if (empty) {
+                String enemy_loc = loc.charAt(0) + pawn.getLocation().substring(1);
+                Piece poss_pawn = board.checkSquare(enemy_loc);
+                return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("Black") &&
+                        ((Pawn) poss_pawn).getMovedTwice() &&
+                        !checkChecked(changedBoard, pawn.getColor()));
+            }
+            // attack
+            else {
+                Piece poss_enemy = board.checkSquare(loc);
+                return (poss_enemy.getColor().equals("Black") &&
+                        !checkChecked(changedBoard, pawn.getColor()));
+            }
+        }
+        //  checking attack & en passant
+        else if (Math.abs(colDiff) == 1 && rowDiff == -1 && blackTurn) {
+            boolean empty = board.checkSquareEmpty(loc);
+
+            // en passant
+            if (empty) {
+                String enemy_loc = loc.charAt(0) + pawn.getLocation().substring(1);
+                Piece poss_pawn = board.checkSquare(enemy_loc);
+                return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("White") &&
+                        ((Pawn) poss_pawn).getMovedTwice() &&
+                        !checkChecked(changedBoard, pawn.getColor()));
+            }
+            // attack
+            else {
+                Piece poss_enemy = board.checkSquare(loc);
+                return (poss_enemy.getColor().equals("White") &&
+                        !checkChecked(changedBoard, pawn.getColor()));
+            }
+
+        } else {
+            return false;
+        }
     }
 
 }
