@@ -14,40 +14,26 @@ public class GameManager {
 
     private int moveNumber = 1;
 
+
 //    private User playerWhite, playerBlack;
-
     private boolean playerWhiteInTurn;
-    private boolean playerBlackInTurn;
-
-    /**
-     * Letters representing the chess board columns.
-     */
-    private final String[] COLUMNS =
-            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
-    /**
-     * Integers representing the chess board rows.
-     */
-    private final int[] ROWS =
-            new int[]{1, 2, 3, 4, 5, 6, 7, 8};
-
+    private final String[] LETTER_COORDINATES;
 
     /**
      *
-     * @param startBoard The starting board containing all pieces needed to start the game.
+     * @param inputBoard The starting board containing all pieces needed to start the game.
      */
-    public GameManager(Board startBoard) {
-        this.board = startBoard;
-        this.whitePiecesOut = new ArrayList<>();
-        this.blackPiecesOut = new ArrayList<>();
+    public GameManager(Board inputBoard) {
+        this.board = inputBoard;
+        this.LETTER_COORDINATES = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
+
+
     }
 
     public void startGame() {
 //        Need to input players, place pieces, set white first
 
         this.playerWhiteInTurn = true;
-        this.playerBlackInTurn = false;
-
-
     }
 
 //    public void setUpWhite(User white) {
@@ -65,7 +51,6 @@ public class GameManager {
     public Board getBoard() {
         return board;
     }
-
 
 //    public void makeMove(String currSpot, String newSpot) {
 //        Piece movingPiece = board.checkSquare(currSpot);
@@ -117,6 +102,7 @@ public class GameManager {
         }else if(movedPiece instanceof King
                 && movedPiece.getUnmoved()
                 && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot.equals("g8"))){
+
             this.makeCastle(newSpot);
         }
         //Place movedPiece in its new spot
@@ -227,7 +213,7 @@ public class GameManager {
         }else{
             enemyColor = "White";
         }
-        for(String column : COLUMNS){
+        for(String column : LETTER_COORDINATES){
             String colLetter = column;
             for(int i = 1; i < 9; ++i){
                 String squareToCheck = colLetter + String.valueOf(i);
@@ -236,10 +222,8 @@ public class GameManager {
                     ((Pawn) piece).clearMovedTwice();
                 }
             }
-
         }
     }
-
 
     /**
      *
@@ -247,12 +231,10 @@ public class GameManager {
      */
     public ArrayList<Piece> getWhitePiecesOut(){
         return this.whitePiecesOut;
-
     }
 
     /**
      *
-
      * @return an array list of eliminated black pieces.
      */
     public ArrayList<Piece> getBlackPiecesOut(){
@@ -263,10 +245,10 @@ public class GameManager {
      *
      * @return true if it is white player's turn and false otherwise.
      */
-
     public boolean isPlayerWhiteInTurn(){
         return this.playerWhiteInTurn;
     }
+
 
 
     public static String updateClock(){
@@ -282,3 +264,4 @@ public class GameManager {
         return this.whitePiecesOut;
     }*/
 }
+

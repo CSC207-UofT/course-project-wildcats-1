@@ -67,6 +67,11 @@ public class BoardManager {
      */
     public boolean checkValidPawnMove(Board board, Pawn pawn, String loc) {
 
+        // If the pawn is promoted, treat it with queen piece behavior
+        if (pawn.isPromoted()){
+            return this.checkValidQueenMove(board, pawn, loc);
+        }
+
         // integer of the difference between the column you're at, from the column you're going to.
         int colDiff = Arrays.asList(COLUMNS).indexOf(loc.substring(0, 1)) -
                 Arrays.asList(COLUMNS).indexOf(pawn.getLocation().substring(0, 1));
@@ -124,7 +129,8 @@ public class BoardManager {
                 Piece poss_pawn = board.checkSquare(enemy_loc);
                 return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("Black") &&
                         ((Pawn) poss_pawn).getMovedTwice() &&
-                        !checkChecked(changedBoard, pawn.getColor()));
+                        !checkChecked(changedBoard, pawn.getColor())&&
+                        !((Pawn) poss_pawn).isPromoted());
             }
             // attack
             else {
@@ -389,7 +395,7 @@ public class BoardManager {
      * @param loc The string location in chess-coordinates, to which the pawn is trying to move to.
      * @return True if the move is possible, otherwise False.
      */
-    public boolean checkValidQueenMove (Board board, Queen queen, String loc) {
+    public boolean checkValidQueenMove (Board board, Piece queen, String loc) {
         return checkValidRookMove(board, queen, loc) || checkValidBishopMove(board, queen, loc);
     }
 
