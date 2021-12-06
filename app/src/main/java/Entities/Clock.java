@@ -6,7 +6,7 @@ public class Clock {
 
 
     public String getStartTime(){
-        return "00 00 00";
+        return "0 : 0 : 0";
     }
 
     public String clockStringConverter(int hours, int mins, int secs){
