@@ -88,4 +88,126 @@ public class BoardManagerTest {
         assertFalse(bm.checkValidMove(bd, "b1", "c3"));
     }
 
+    @Test(timeout = 50)
+    public void testBishop(){
+        Board bd = new Board();
+        Piece pc = new Bishop("White", "b1");
+        bd.addPiece(pc, "b1");
+
+        assertTrue(bm.checkValidMove(bd, "b1", "d3"));
+        assertFalse(bm.checkValidMove(bd, "b1", "b7"));
+
+        Piece block = new Pawn("White", "c2");
+        bd.addPiece(block, "c2");
+
+        assertFalse(bm.checkValidMove(bd, "b1", "d3"));
+
+        Piece enemy = new Pawn("Black", "c2");
+        Piece removed = bd.removePiece("c2");
+        bd.addPiece(enemy, "c2");
+
+        assertFalse(bm.checkValidMove(bd, "b1", "d3"));
+        assertTrue(bm.checkValidMove(bd, "b1", "c2"));
+    }
+
+    @Test(timeout = 50)
+    public void testRook(){
+        Board bd = new Board();
+        Piece pc = new Rook("White", "c4");
+        bd.addPiece(pc, "c4");
+
+        assertTrue(bm.checkValidMove(bd, "c4", "c7"));
+        assertTrue(bm.checkValidMove(bd, "c4", "f4"));
+        assertFalse(bm.checkValidMove(bd, "c4", "b7"));
+
+        Piece block = new Pawn("White", "c6");
+        bd.addPiece(block, "c6");
+
+        assertFalse(bm.checkValidMove(bd, "c4", "c7"));
+
+        Piece enemy = new Pawn("Black", "b4");
+        bd.addPiece(enemy, "b4");
+
+        assertFalse(bm.checkValidMove(bd, "c4", "a4"));
+        assertTrue(bm.checkValidMove(bd, "c4", "b4"));
+    }
+
+    @Test(timeout = 50)
+    public void testQueen(){
+        Board bd = new Board();
+        Piece pc = new Queen("White", "c4");
+        bd.addPiece(pc, "c4");
+
+        assertTrue(bm.checkValidMove(bd, "c4", "c7"));
+        assertTrue(bm.checkValidMove(bd, "c4", "f4"));
+        assertTrue(bm.checkValidMove(bd, "c4", "e6"));
+        assertFalse(bm.checkValidMove(bd, "c4", "b7"));
+
+        Piece blockRook = new Pawn("White", "c6");
+        bd.addPiece(blockRook, "c6");
+        Piece blockBishop = new Pawn("White", "e6");
+        bd.addPiece(blockBishop, "e6");
+
+        assertFalse(bm.checkValidMove(bd, "c4", "c7"));
+        assertFalse(bm.checkValidMove(bd, "c4", "f7"));
+
+        Piece enemy1 = new Pawn("Black", "f4");
+        bd.addPiece(enemy1, "f4");
+        Piece enemy2 = new Pawn("Black", "b5");
+        bd.addPiece(enemy1, "b5");
+
+        assertFalse(bm.checkValidMove(bd, "c4", "g4"));
+        assertTrue(bm.checkValidMove(bd, "c4", "f4"));
+
+        assertFalse(bm.checkValidMove(bd, "c4", "a6"));
+        assertTrue(bm.checkValidMove(bd, "c4", "b5"));
+    }
+
+    @Test(timeout = 50)
+    public void testKing(){
+        Board bd = new Board();
+        Piece pc = new King("White", "c4");
+        bd.addPiece(pc, "c4");
+
+        assertTrue(bm.checkValidMove(bd, "c4", "c5"));
+        assertTrue(bm.checkValidMove(bd, "c4", "d5"));
+        assertFalse(bm.checkValidMove(bd, "c4", "c7"));
+
+        Piece block = new Pawn("White", "c5");
+        bd.addPiece(block, "c5");
+
+        assertFalse(bm.checkValidMove(bd, "c4", "c5"));
+
+        Piece enemy = new Pawn("Black", "d4");
+        bd.addPiece(enemy, "d4");
+
+        assertTrue(bm.checkValidMove(bd, "c4", "d4"));
+    }
+
+    @Test(timeout = 50)
+    public void testKingCastle(){
+        Board bd = new Board();
+        Piece pc = new King("White", "e1");
+        bd.addPiece(pc, "e1");
+
+        Rook rookLeft = new Rook("White", "a1");
+        Rook rookRight = new Rook("White", "h1");
+
+        assertTrue(bm.checkValidMove(bd, "e1", "g1"));
+        assertTrue(bm.checkValidMove(bd, "e1", "c1"));
+
+        Piece block = new Bishop("White", "f1");
+        bd.addPiece(block, "f1");
+
+        assertFalse(bm.checkValidMove(bd, "e1", "g1"));
+
+        Piece removed = bd.removePiece("f1");
+
+        bd.movePiece("e1", "e2");
+        bd.movePiece("e2", "e1");
+
+        assertFalse(bm.checkValidMove(bd, "e1", "g1"));
+        assertFalse(bm.checkValidMove(bd, "e1", "c1"));
+    }
+
 }
