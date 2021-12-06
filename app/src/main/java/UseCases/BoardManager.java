@@ -129,7 +129,8 @@ public class BoardManager {
                 Piece poss_pawn = board.checkSquare(enemy_loc);
                 return (poss_pawn instanceof Pawn && poss_pawn.getColor().equals("Black") &&
                         ((Pawn) poss_pawn).getMovedTwice() &&
-                        !checkChecked(changedBoard, pawn.getColor()));
+                        !checkChecked(changedBoard, pawn.getColor())&&
+                        !((Pawn) poss_pawn).isPromoted());
             }
             // attack
             else {
