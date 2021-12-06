@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import Entities.*;
 import Interfaces.Database;
 import Interfaces.Move;
-import Interfaces.User;
 
 public class GameManager {
 
@@ -13,6 +12,17 @@ public class GameManager {
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
 
     private int moveNumber = 1;
+
+    /**
+     * Letters representing the chess board columns.
+     */
+    private final String[] COLUMNS =
+            new String[]{"a", "b", "c", "d", "e", "f", "g", "h"};
+    /**
+     * Integers representing the chess board rows.
+     */
+    private final int[] ROWS =
+            new int[]{1, 2, 3, 4, 5, 6, 7, 8};
 
 
 //    private User playerWhite, playerBlack;
@@ -93,27 +103,27 @@ public class GameManager {
         Piece movedPiece = board.removePiece(currSpot);
         if (movedPiece == null) return;
 
-        //Check whether en passent was made
+        //Check whether en passant was made
         if(movedPiece instanceof Pawn
                 && !currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
                 && board.checkSquareEmpty(newSpot)){
-            makeEnPassent(newSpot);
+            makeEnPassant(newSpot);
         //Check whether castling was made
         }else if(movedPiece instanceof King
                 && movedPiece.getUnmoved()
                 && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot.equals("g8"))){
 
-            this.makeCastle(newSpot);
+            this.makeCastling(newSpot);
         }
         //Place movedPiece in its new spot
         if(!board.checkSquareEmpty(newSpot)){
             Piece taken = board.removePiece(newSpot);
             taken.eliminate();
-            if(playerWhiteInTurn){
-                blackPiecesOut.add(taken);
-            }else{
-                whitePiecesOut.add(taken);
-            }
+//            if(playerWhiteInTurn){
+//                blackPiecesOut.add(taken);
+//            }else{
+//                whitePiecesOut.add(taken);
+//            }
         }
         board.addPiece(movedPiece, newSpot);
         movedPiece.move(newSpot);
@@ -122,11 +132,7 @@ public class GameManager {
         }
         //Clear enemy pieces' movedTwice status and switch player in turn
         this.clearMovedTwice(playerWhiteInTurn);
-        if(playerWhiteInTurn){
-            playerWhiteInTurn = false;
-        }else{
-            playerWhiteInTurn = true;
-        }
+        playerWhiteInTurn = !playerWhiteInTurn;
 
         String code = currSpot + newSpot;
         Move move = new Move("", code, moveNumber);
@@ -139,18 +145,18 @@ public class GameManager {
      *
      * @param newSpot The target location of the piece being moved
      */
-    private void makeEnPassent(String newSpot){
+    private void makeEnPassant(String newSpot){
         String colLetter = newSpot.substring(0, 1);
         int rowNum = Integer.parseInt(newSpot.substring(1, 2));
         if(playerWhiteInTurn){
             rowNum -= 1;
-            String takenLoc = colLetter + String.valueOf(rowNum);
+            String takenLoc = colLetter + rowNum;
             Piece removed = board.removePiece(takenLoc);
             //removed.eliminate();
             this.blackPiecesOut.add(removed);
         }else{
             rowNum += 1;
-            String takenLoc = colLetter + String.valueOf(rowNum);
+            String takenLoc = colLetter + rowNum;
             Piece removed = board.removePiece(takenLoc);
             //removed.eliminate();
             this.whitePiecesOut.add(removed);
@@ -162,10 +168,10 @@ public class GameManager {
      *
      * @param newSpot The target location of the piece being moved.
      */
-    private void makeCastle(String newSpot){
+    private void makeCastling(String newSpot){
         String colLetter = newSpot.substring(0, 1);
         if(playerWhiteInTurn){
-            if(colLetter == "c"){
+            if(colLetter.equals("c")){
                 Piece rook = board.removePiece("a1");
                 rook.move("d1");
                 board.addPiece(rook, "d1");
@@ -175,7 +181,7 @@ public class GameManager {
                 board.addPiece(rook, "f1");
             }
         }else{
-            if(colLetter == "c"){
+            if(colLetter.equals("c")){
                 Piece rook = board.removePiece("a8");
                 rook.move("d8");
                 board.addPiece(rook, "d8");
@@ -213,12 +219,11 @@ public class GameManager {
         }else{
             enemyColor = "White";
         }
-        for(String column : LETTER_COORDINATES){
-            String colLetter = column;
-            for(int i = 1; i < 9; ++i){
-                String squareToCheck = colLetter + String.valueOf(i);
-                Piece piece = board.checkSquare(squareToCheck);
-                if(piece instanceof Pawn && piece.getColor() == enemyColor){
+        for (int c = 0; c <= 7; c++) {
+            for (int r = 0; r <= 7; r++) {
+                String squareID = COLUMNS[c] + ROWS[r];
+                Piece piece = board.checkSquare(squareID);
+                if(piece instanceof Pawn && piece.getColor().equals(enemyColor)){
                     ((Pawn) piece).clearMovedTwice();
                 }
             }
