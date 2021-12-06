@@ -1,6 +1,5 @@
 package Controllers;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -43,6 +42,9 @@ public class GameActivity extends AppCompatActivity {
     private BoardManager boardManager = new BoardManager();
 
     private int moveNumber = 0;
+    private int trackHours = 0;
+    private int trackMins = 0;
+    private int trackSecs = 0;
 
 
     @Override
@@ -67,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        CharSequence charSequence = new StringBuffer(GameManager.updateClock());
+        CharSequence charSequence = new StringBuffer(GameManager.initializeClock());
         final TextView helloTextView = (TextView) findViewById(R.id.clockView);
         helloTextView.setText(charSequence);
 
@@ -124,6 +126,25 @@ public class GameActivity extends AppCompatActivity {
                     gameManager.makeMove(currSpot, newSpot);
                     moveNumber++;
                 }
+
+                // logic to keep clock up to date
+                trackSecs += 1;
+
+                if(trackSecs == 60){
+                    trackSecs = 0;
+                    trackMins += 1;
+                }
+                if(trackMins == 60){
+                    trackMins = 0;
+                    trackHours += 1;
+                }
+                //convert data to a string and store
+                String timeToDisplay = GameManager.clockUpdator(trackHours, trackMins, trackSecs);
+                //update display
+                CharSequence charSequence = new StringBuffer(timeToDisplay);
+                final TextView helloTextView = (TextView) findViewById(R.id.clockView);
+                helloTextView.setText(charSequence);
+
                 // Run this method recursively every 1000ms (1s).
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {

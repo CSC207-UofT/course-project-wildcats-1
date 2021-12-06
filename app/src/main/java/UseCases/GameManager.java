@@ -255,11 +255,25 @@ public class GameManager {
     }
 
 
-
-    public static String updateClock(){
-        Clock egclock = new Clock(0,0,0);
-        return egclock.getTime();
+    /**
+     *
+     * @return string (00 00 00) to initialize display of clock on game window.
+     */
+    public static String initializeClock(){
+        Clock startClock = new Clock();
+        return startClock.getStartTime();
     }
+
+    /**
+     *
+     * @return string in format (00 00 00) to update display of clock on game window
+     * when called in gameloop.
+     */
+    public static String clockUpdator(int hours, int mins, int secs){
+        Clock updateClock = new Clock();
+        return updateClock.clockStringConverter(hours, mins, secs);
+    }
+
 
     /*public ArrayList<Piece> getWhitePiecesOut(){
         return this.whitePiecesOut;
