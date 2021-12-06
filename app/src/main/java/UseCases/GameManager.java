@@ -3,12 +3,18 @@ package UseCases;
 import java.util.ArrayList;
 
 import Entities.*;
+import Interfaces.Database;
+import Interfaces.Move;
 import Interfaces.User;
 
 public class GameManager {
 
     private Board board;
     private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
+
+    private int moveNumber = 1;
+
+
 //    private User playerWhite, playerBlack;
     private boolean playerWhiteInTurn;
     private final String[] LETTER_COORDINATES;
@@ -85,6 +91,7 @@ public class GameManager {
      */
     public void makeMove(String currSpot, String newSpot){
         Piece movedPiece = board.removePiece(currSpot);
+        if (movedPiece == null) return;
 
         //Check whether en passent was made
         if(movedPiece instanceof Pawn
@@ -94,7 +101,8 @@ public class GameManager {
         //Check whether castling was made
         }else if(movedPiece instanceof King
                 && movedPiece.getUnmoved()
-                && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot == "g8")){
+                && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot.equals("g8"))){
+
             this.makeCastle(newSpot);
         }
         //Place movedPiece in its new spot
@@ -119,6 +127,11 @@ public class GameManager {
         }else{
             playerWhiteInTurn = true;
         }
+
+        String code = currSpot + newSpot;
+        Move move = new Move("", code, moveNumber);
+        moveNumber++;
+        Database.insert(Database.Collections.MOVES, move, ()->{});
     }
 
     /**
@@ -133,13 +146,13 @@ public class GameManager {
             rowNum -= 1;
             String takenLoc = colLetter + String.valueOf(rowNum);
             Piece removed = board.removePiece(takenLoc);
-            removed.eliminate();
+            //removed.eliminate();
             this.blackPiecesOut.add(removed);
         }else{
             rowNum += 1;
             String takenLoc = colLetter + String.valueOf(rowNum);
             Piece removed = board.removePiece(takenLoc);
-            removed.eliminate();
+            //removed.eliminate();
             this.whitePiecesOut.add(removed);
         }
     }
@@ -236,4 +249,19 @@ public class GameManager {
         return this.playerWhiteInTurn;
     }
 
+
+
+    public static String updateClock(){
+        Clock egclock = new Clock(0,0,0);
+        return egclock.getTime();
+    }
+
+    /*public ArrayList<Piece> getWhitePiecesOut(){
+        return this.whitePiecesOut;
+    }
+
+    public ArrayList<Piece> getBlackPiecesOut(){
+        return this.whitePiecesOut;
+    }*/
 }
+
