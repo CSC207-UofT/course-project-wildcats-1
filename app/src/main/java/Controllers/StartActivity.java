@@ -47,7 +47,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void onSinglePlayerClicked() {
-
+        openGameActivity();
     }
 
     private void onMultiplayerClicked() {
