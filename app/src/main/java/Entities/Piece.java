@@ -78,7 +78,7 @@ public class Piece {
     }
 
     /**
-     * @return thhe
+     * @return the image representing this piece.
      */
     public int getImage(){
         return image;
