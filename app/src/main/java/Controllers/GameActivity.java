@@ -21,6 +21,9 @@ import UseCases.NormalGameBuilder;
 
 import android.view.View;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 // Controls user input for the Game page.
 public class GameActivity extends AppCompatActivity {
@@ -63,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        CharSequence charSequence = new StringBuffer(GameManager.updateClock());
+        CharSequence charSequence = new StringBuffer(GameManager.update1Clock());
         final TextView helloTextView = (TextView) findViewById(R.id.clockView);
         helloTextView.setText(charSequence);
 

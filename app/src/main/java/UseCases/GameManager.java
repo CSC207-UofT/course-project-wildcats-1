@@ -3,7 +3,6 @@ package UseCases;
 import java.util.ArrayList;
 
 import Entities.*;
-import Interfaces.User;
 
 public class GameManager {
 
@@ -93,9 +92,14 @@ public class GameManager {
     }
 
 
-    public static String updateClock(){
-        Clock egclock = new Clock(0,0,0);
-        return egclock.getTime();
+    public static String update1Clock(){
+        Clock egclock = new Clock();
+        return egclock.getStartTime();
+    }
+
+    public static void updateClock(){
+
+
     }
 
     public ArrayList<Piece> getWhitePiecesOut(){
