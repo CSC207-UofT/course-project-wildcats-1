@@ -8,6 +8,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import com.wildcats.ultimatechess.R;
 
+import java.util.Arrays;
+
 public class PieceLayoutManager{
 
     private ImageView[][] board = new ImageView[8][8];
@@ -16,6 +18,7 @@ public class PieceLayoutManager{
     final char[] nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
     int id;
     private Activity activity;
+    private int[] clicked = new int[2];
 
     public PieceLayoutManager(Context context){
         this.activity = (Activity)context;
@@ -28,7 +31,7 @@ public class PieceLayoutManager{
                 this.id =context.getResources().getIdentifier(""+this.letters[i]+this.nums[7-k],
                         "id",
                         context.getPackageName());
-                this.board[i][k]=activity.findViewById(this.id);
+                this.board[i][k]=this.activity.findViewById(this.id);
             }
         }
     }
@@ -37,5 +40,22 @@ public class PieceLayoutManager{
     }
     public void editImageAt(int col, int row, int newImage) {
         this.board[col][row].setImageResource(newImage);
+    }
+    public void setClicked(MoveBufferInterface moveBuffer){
+        String move = moveBuffer.getClick1();
+        if (this.clicked[0] != 0){
+            this.board[this.clicked[0]][this.clicked[1]].setBackgroundResource(0);}
+
+        if (move != null) {
+            int col = Arrays.binarySearch(this.letters, move.charAt(0));
+            int row = 7-Arrays.binarySearch(this.nums, move.charAt(1));
+            this.board[col][row].setBackgroundResource(R.drawable.clicked_bg);
+            this.clicked[0]= col;
+            this.clicked[1]= row;
+
+        }
+
+
+
     }
 }

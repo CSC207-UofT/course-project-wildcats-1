@@ -3,9 +3,10 @@ package UseCases;
 import android.app.Activity;
 import android.content.Context;
 
+import Controllers.MoveBufferInterface;
 import Entities.Board;
 
-public class MoveBuffer {
+public class MoveBuffer implements MoveBufferInterface {
     private Activity activity;
     private String click1;
     private String click2;
@@ -36,5 +37,10 @@ public class MoveBuffer {
            }
 
         return null;
+    }
+
+    @Override
+    public String getClick1() {
+        return this.click1;
     }
 }

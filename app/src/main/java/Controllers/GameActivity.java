@@ -93,6 +93,7 @@ public class GameActivity extends AppCompatActivity {
             String coordinates = boardCoordConvert(touchLoc[0], touchLoc[1], true);
             System.out.println("COORDINATES: " + coordinates);
             tempMove = moveBuffer.addClick(coordinates, gameManager.getBoard());
+            layoutManager.setClicked(moveBuffer);
             System.out.println(tempMove);
             if (tempMove!=null){
                 gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
