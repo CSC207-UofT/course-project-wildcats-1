@@ -9,7 +9,11 @@ import Interfaces.Move;
 public class GameManager {
 
     private Board board;
-    private ArrayList<Piece> whitePiecesOut, blackPiecesOut;
+
+    private String gameID;
+
+    private ArrayList<Piece> whitePiecesOut;
+    private ArrayList<Piece> blackPiecesOut;
 
     private int moveNumber = 1;
 
@@ -25,9 +29,10 @@ public class GameManager {
             new int[]{1, 2, 3, 4, 5, 6, 7, 8};
 
 
-//    private User playerWhite, playerBlack;
+    /**
+     * Boolean representing whether it is White's turn, or not (Black's turn).
+     */
     private boolean playerWhiteInTurn;
-    private final String[] LETTER_COORDINATES;
 
     /**
      *
@@ -35,24 +40,13 @@ public class GameManager {
      */
     public GameManager(Board inputBoard) {
         this.board = inputBoard;
-        this.LETTER_COORDINATES = new String[]{"A", "B", "C", "D", "E", "F", "G", "H"};
-
-
-    }
-
-    public void startGame() {
-//        Need to input players, place pieces, set white first
-
+        this.gameID = String.valueOf((int)(Math.random() * 999999));
+        this.whitePiecesOut = new ArrayList<>();
+        this.blackPiecesOut = new ArrayList<>();
         this.playerWhiteInTurn = true;
+
     }
 
-//    public void setUpWhite(User white) {
-//        playerWhite = white;
-//    }
-//
-//    public void setUpBlack(User black) {
-//        playerBlack = black;
-//    }
 
     public void endGame() {
 
@@ -61,33 +55,6 @@ public class GameManager {
     public Board getBoard() {
         return board;
     }
-
-//    public void makeMove(String currSpot, String newSpot) {
-//        Piece movingPiece = board.checkSquare(currSpot);
-//        Object potentialPiece = board.checkSquare(newSpot);
-//
-//        MoveChecker checker = new MoveChecker();
-//        Boolean condition1 = true;
-//        // Boolean condition1 = checker.checkValidMove(board, currSpot, newSpot);
-//        Boolean condition2 = true;
-//        // condition2 = !Player.isChecked
-//        if(condition1 && condition2){
-//            board.movePiece(currSpot, newSpot);
-//            // promote pawn
-//            if (board.checkSquare(newSpot) instanceof Pawn && (board.getRowNum(newSpot) == 1
-//                    || board.getRowNum(newSpot) == 8)){
-//                String color = board.checkSquare(newSpot).getColor();
-//                board.removePiece(newSpot);
-//                board.addPiece(new Queen(color, newSpot), newSpot);
-//            }
-//            // castling
-//            if(board.checkSquare(newSpot) instanceof King && ){
-//
-//            }
-//
-//        }
-//
-//    }
 
     /**
      * Moves a piece from currSpot to newSpot. Includes castling and en passent.
@@ -100,44 +67,61 @@ public class GameManager {
      * @param newSpot  The target location of the piece being moved
      */
     public void makeMove(String currSpot, String newSpot){
-        Piece movedPiece = board.removePiece(currSpot);
-        if (movedPiece == null) return;
+        Piece movedPiece = board.checkSquare(currSpot);
 
-        //Check whether en passant was made
-        if(movedPiece instanceof Pawn
-                && !currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
-                && board.checkSquareEmpty(newSpot)){
-            makeEnPassant(newSpot);
-        //Check whether castling was made
-        }else if(movedPiece instanceof King
-                && movedPiece.getUnmoved()
-                && (newSpot.equals("c1") || newSpot.equals("c8") || newSpot.equals("g1") || newSpot.equals("g8"))){
+        // Check that the move being made is by the right player
+        if (movedPiece != null && movedPiece.getColor().equals("White") && playerWhiteInTurn ||
+                movedPiece != null && movedPiece.getColor().equals("Black") && !playerWhiteInTurn){
 
-            this.makeCastling(newSpot);
-        }
-        //Place movedPiece in its new spot
-        if(!board.checkSquareEmpty(newSpot)){
-            Piece taken = board.removePiece(newSpot);
-            taken.eliminate();
-//            if(playerWhiteInTurn){
-//                blackPiecesOut.add(taken);
-//            }else{
-//                whitePiecesOut.add(taken);
-//            }
-        }
-        board.addPiece(movedPiece, newSpot);
-        movedPiece.move(newSpot);
-        if (movedPiece instanceof Pawn && checkMovedTwice(currSpot, newSpot)){
-            ((Pawn) movedPiece).movedTwice();
-        }
-        //Clear enemy pieces' movedTwice status and switch player in turn
-        this.clearMovedTwice(playerWhiteInTurn);
-        playerWhiteInTurn = !playerWhiteInTurn;
+            // removed piece
+            Piece removedPiece = board.removePiece(currSpot);
 
-        String code = currSpot + newSpot;
-        Move move = new Move("", code, moveNumber);
-        moveNumber++;
-        Database.insert(Database.Collections.MOVES, move, ()->{});
+
+            if (removedPiece instanceof Pawn) {
+                //Check whether en passant occurred
+                if (!currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
+                        && board.checkSquareEmpty(newSpot)) {
+                    makeEnPassant(newSpot);
+                }
+                //Check whether pawn promotion occurred
+                else if (playerWhiteInTurn && newSpot.substring(1).equals("8")
+                        || !playerWhiteInTurn && newSpot.substring(1).equals("1") ) {
+                    ((Pawn) removedPiece).promote();
+                    //TODO Pawn Promotion
+                }
+            }
+            //Check whether castling occurred
+            else if (removedPiece instanceof King && removedPiece.getUnmoved()
+                    && (newSpot.equals("c1") || newSpot.equals("c8")
+                    || newSpot.equals("g1") || newSpot.equals("g8"))) {
+                this.makeCastling(newSpot);
+            }
+
+            //Place removedPiece in its new spot
+            if (!board.checkSquareEmpty(newSpot)) {
+                Piece taken = board.removePiece(newSpot);
+                taken.eliminate();
+                if (playerWhiteInTurn){
+                    blackPiecesOut.add(taken);
+                } else {
+                    whitePiecesOut.add(taken);
+                }
+            }
+            board.addPiece(removedPiece, newSpot);
+
+            removedPiece.move(newSpot);
+            if (removedPiece instanceof Pawn && checkMovedTwice(currSpot, newSpot)) {
+                ((Pawn) removedPiece).movedTwice();
+            }
+            //Clear enemy pieces' movedTwice status and switch player in turn
+            this.clearMovedTwice(playerWhiteInTurn);
+            playerWhiteInTurn = !playerWhiteInTurn;
+
+            String code = currSpot + newSpot;
+            Move move = new Move(gameID, code, moveNumber);
+            moveNumber++;
+            Database.insert(Database.Collections.MOVES, move, () -> {});
+        }
     }
 
     /**
@@ -147,18 +131,18 @@ public class GameManager {
      */
     private void makeEnPassant(String newSpot){
         String colLetter = newSpot.substring(0, 1);
-        int rowNum = Integer.parseInt(newSpot.substring(1, 2));
+        int rowNum = Integer.parseInt(newSpot.substring(1));
         if(playerWhiteInTurn){
             rowNum -= 1;
             String takenLoc = colLetter + rowNum;
             Piece removed = board.removePiece(takenLoc);
-            //removed.eliminate();
+            removed.eliminate();
             this.blackPiecesOut.add(removed);
         }else{
             rowNum += 1;
             String takenLoc = colLetter + rowNum;
             Piece removed = board.removePiece(takenLoc);
-            //removed.eliminate();
+            removed.eliminate();
             this.whitePiecesOut.add(removed);
         }
     }

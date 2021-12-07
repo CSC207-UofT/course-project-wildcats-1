@@ -22,7 +22,7 @@ public class MoveBuffer implements MoveBufferInterface {
                 System.out.println("CLICK 1: " + this.click1);
         }
         else if (this.click1 != null && !this.click1.equals(cord) &&
-                boardManager.checkValidMove(board, this.click1, cord)) {
+                boardManager.checkMoveChecker(board, this.click1, cord)) {
                this.click2 = cord;
                System.out.println("CLICK 2: " + this.click2);
 

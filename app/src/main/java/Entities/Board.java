@@ -72,18 +72,22 @@ public class Board {
      * - There is a Piece at the start location
      * - The end location is empty
      *
+     * Representation Invariant:
+     * - The start and end locations aren't the same
+     *
      * @param start The string name of the square containing a piece to be moved
      * @param end   The string name of the square to which the piece will be moved
      */
     public void movePiece(String start, String end){
-        int startRowNum = this.getRowNum(start);
-        int startColNum = this.getColNum(start);
-        int endRowNum = this.getRowNum(end);
-        int endColNum = this.getColNum(end);
+        if (!start.equals(end)) {
+            int startRowNum = this.getRowNum(start);
+            int startColNum = this.getColNum(start);
+            int endRowNum = this.getRowNum(end);
+            int endColNum = this.getColNum(end);
 
-        board[endColNum][endRowNum] = board[startColNum][startRowNum];
-        board[startColNum][startRowNum] = null;
-
+            board[endColNum][endRowNum] = board[startColNum][startRowNum];
+            board[startColNum][startRowNum] = null;
+        }
     }
 
     /**

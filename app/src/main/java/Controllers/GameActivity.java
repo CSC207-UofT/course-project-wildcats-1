@@ -10,15 +10,10 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import com.wildcats.ultimatechess.R;
-import Interfaces.Database;
-import Interfaces.Document;
-import Interfaces.Move;
-import UseCases.BoardManager;
-import UseCases.BoardUpdator;
-import UseCases.GameBuildDirector;
-import UseCases.GameManager;
-import UseCases.MoveBuffer;
-import UseCases.NormalGameBuilder;
+
+import Interfaces.*;
+
+import UseCases.*;
 
 import android.view.View;
 
@@ -67,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
 
         gameManager = gameBuilder.getGame();
 
+        boardManager = new BoardManager();
+
         moveBuffer = new MoveBuffer(this);
 
         CharSequence charSequence = new StringBuffer(GameManager.initializeClock());
@@ -96,6 +93,7 @@ public class GameActivity extends AppCompatActivity {
             layoutManager.setClicked(moveBuffer);
             System.out.println(tempMove);
             if (tempMove!=null){
+                System.out.println("VALID");
                 gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
             }
             return false;
@@ -107,11 +105,45 @@ public class GameActivity extends AppCompatActivity {
         Database.fetch(Database.Collections.MOVES, docs -> {
 
             System.out.println("=== GAME LOOP ===");
+
+            // logic to keep clock up to date
+            trackSecs += 1;
+
+            if (trackSecs == 60) {
+                trackSecs = 0;
+                trackMins += 1;
+            }
+            if (trackMins == 60) {
+                trackMins = 0;
+                trackHours += 1;
+            }
+            //convert data to a string and store
+            String timeToDisplay = GameManager.clockUpdator(trackHours, trackMins, trackSecs);
+            //update display
+            CharSequence charSequence = new StringBuffer(timeToDisplay);
+            final TextView helloTextView = (TextView) findViewById(R.id.clockView);
+            helloTextView.setText(charSequence);
+
             boardUpdator.updateBoard(gameManager.getBoard(), layoutManager);
 
-            Database.fetch(Database.Collections.MOVES, (moves)->{
+            // color to be checked against
+            String color;
+            if (gameManager.isPlayerWhiteInTurn()) {
+                color = "White";
+            } else {
+                color = "Black";
+            }
+
+            if (boardManager.checkCheckmated(gameManager.getBoard(), color)) {
+                //TODO Checkmate endgame method
+            } else if (boardManager.checkStalemated(gameManager.getBoard(), color)) {
+                //TODO Stalemate endgame method
+            }
+
+            // TODO Provide all documentation and comments in this method
+            Database.fetch(Database.Collections.MOVES, (moves) -> {
                 if (moves.size() > moveNumber) {
-                    Move lastMove = (Move)moves.get(0);
+                    Move lastMove = (Move) moves.get(0);
                     int largestNumber = 0;
                     for (Document doc : moves) {
                         Move move  = (Move)doc;
@@ -120,38 +152,17 @@ public class GameActivity extends AppCompatActivity {
                             lastMove = move;
                         }
                     }
-                    String currSpot = new StringBuilder().append(
-                        lastMove.getCode().charAt(0)).append(lastMove.getCode().charAt(1)).toString();
-                    String newSpot = new StringBuilder().append(
-                        lastMove.getCode().charAt(2)).append(lastMove.getCode().charAt(3)).toString();
+                    String currSpot = String.valueOf(lastMove.getCode().charAt(0)) +
+                            lastMove.getCode().charAt(1);
+                    String newSpot = String.valueOf(lastMove.getCode().charAt(2)) +
+                            lastMove.getCode().charAt(3);
                     gameManager.makeMove(currSpot, newSpot);
                     moveNumber++;
                 }
 
-                // logic to keep clock up to date
-                trackSecs += 1;
-
-                if(trackSecs == 60){
-                    trackSecs = 0;
-                    trackMins += 1;
-                }
-                if(trackMins == 60){
-                    trackMins = 0;
-                    trackHours += 1;
-                }
-                //convert data to a string and store
-                String timeToDisplay = GameManager.clockUpdator(trackHours, trackMins, trackSecs);
-                //update display
-                CharSequence charSequence = new StringBuffer(timeToDisplay);
-                final TextView helloTextView = (TextView) findViewById(R.id.clockView);
-                helloTextView.setText(charSequence);
-
                 // Run this method recursively every 1000ms (1s).
                 final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() { gameLoop(); }
-                }, 1000);
+                handler.postDelayed(this::gameLoop, 1000);
             });
         });
     }

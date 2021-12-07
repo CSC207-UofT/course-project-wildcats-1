@@ -41,10 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         }*/
 
         // Run onLoginClicked() when the login button is clicked.
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { onLoginClicked(); }
-        });
+        btn_login.setOnClickListener(view -> onLoginClicked());
 
     }
 
@@ -68,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 User user = (User)doc;
                 if (user.getName().equals(username) && user.getPassword().equals(password)) {
                     openStartActivity(username, user.getDocumentId());
-                    return;
                 }
             }
         });
