@@ -176,11 +176,15 @@ public class GameActivity extends AppCompatActivity {
                 //TODO Stalemate endgame method
             }
 
-            // TODO Provide all documentation and comments in this method
+            // Fetch the database for new moves.
             Database.fetch(Database.Collections.MOVES, (moves) -> {
+                // When the size of 'moves' is larger than 'moveNumber',
+                // it means that one of the users has performed a move and both players need to
+                // replicate it on their devices.
                 if (moves.size() > moveNumber) {
                     Move lastMove = (Move) moves.get(0);
                     int largestNumber = 0;
+                    // We need to find the last move which is the one with the largest 'number'.
                     for (Document doc : moves) {
                         Move move  = (Move)doc;
                         if (move.getNumber() > largestNumber) {
@@ -188,10 +192,12 @@ public class GameActivity extends AppCompatActivity {
                             lastMove = move;
                         }
                     }
+                    // Get currSpot and newSpot using the move's code.
                     String currSpot = String.valueOf(lastMove.getCode().charAt(0)) +
                             lastMove.getCode().charAt(1);
                     String newSpot = String.valueOf(lastMove.getCode().charAt(2)) +
                             lastMove.getCode().charAt(3);
+                    // Use the GameManager to register the new move.
                     gameManager.makeMove(currSpot, newSpot);
                     moveNumber++;
                 }

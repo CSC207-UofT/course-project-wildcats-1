@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Interfaces.User.UserRef;
 
-/* Bridge between the Java code and the Firebase database.
+/**
+ * Bridge between the Java code and the Firebase database.
  * Enables the basics database operations: insert, update, delete and fetch.
  *
  * This class serves as a wrapper of the Firebase API.
@@ -40,8 +41,12 @@ public class Database {
     public interface IOnCompleteFetch {
         void onComplete(List<Document> entries);
     }
-
-    // Insert a new document in a collection.
+    /**
+     * Insert a new document in a collection.
+     * @param collection database collection where the document will be inserted
+     * @param document will be inserted in the database collection
+     * @param event runs after insertion
+     */
     public static void insert(Collections collection, Document document, IOnComplete event) {
         // Get a reference of the Firebase collection.
         CollectionReference firebaseCollection =
@@ -56,7 +61,13 @@ public class Database {
         });
     }
 
-    // Update a document from a collection.
+    /**
+     * Update a document from a collection.
+     * @param collection database collection where a document will be updated
+     * @param id document id
+     * @param document will be updated
+     * @param event runs after update
+     */
     public static void update(Collections collection, String id, Document document, IOnComplete event) {
         // Create the document path using the collection and the document id.
         String docPath = getCollectionString(collection) + "/" + id;
@@ -70,7 +81,12 @@ public class Database {
         });
     }
 
-    // Delete a document from a collection.
+    /**
+     * Delete a document from a collection.
+     * @param collection database collection where a document will be deleted
+     * @param id document id
+     * @param event runs after deletion
+     */
     public static void delete(Collections collection, String id, IOnComplete event) {
         // Create the document path using the collection and the document id.
         String docPath = getCollectionString(collection) + "/" + id;
@@ -84,6 +100,11 @@ public class Database {
         });
     }
 
+    /**
+     * Fetch elements from a collection.
+     * @param collection database collection where the fetch will be performed
+     * @param event runs after fetch
+     */
     public static void fetch(Collections collection, IOnCompleteFetch event) {
         // Get a reference of the Firebase collection.
         CollectionReference firebaseCollection =
@@ -114,8 +135,11 @@ public class Database {
         });
     }
 
-    // Convert Collection enum element to a string.
-    // Useful to create database paths.
+    /**
+     * Convert Collection enum element to a string.
+     * Useful to create database paths.
+     * @param collection enum of a database collection
+     */
     private static String getCollectionString(Collections collection) {
         switch (collection) {
             case USERS: return "users";
