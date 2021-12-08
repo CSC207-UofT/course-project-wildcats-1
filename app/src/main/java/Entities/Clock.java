@@ -6,7 +6,7 @@ public class Clock {
 
     //initiate clock state white
     public String getStartTimeWhite(){
-        return "White's Timer 00 : 00 : 00";
+        return "White's Timer  00 : 00 : 00";
     }
 
     //initiate clock state black
