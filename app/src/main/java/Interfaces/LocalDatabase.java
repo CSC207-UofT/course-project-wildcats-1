@@ -5,7 +5,8 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- *
+ * Stores information locally on the user's device using a SQLite database.
+ * Currently, it only stores user's login info but it could store other type of information.
  */
 public class LocalDatabase {
 
@@ -17,7 +18,7 @@ public class LocalDatabase {
     }
 
     /**
-     *
+     * Check if the user login if has been previously saved locally.
      */
     public boolean loginInfoSaved() {
         if (DatabaseUtils.queryNumEntries(db, "Login") == 0) return false;
@@ -25,16 +26,17 @@ public class LocalDatabase {
     }
 
     /**
-     *
-     * @param name
-     * @param password
+     * Save user's login info locally.
+     * @param name user's name
+     * @param password user's password
      */
     public void saveLoginInfo(String name, String password) {
         db.execSQL("INSERT INTO Login VALUES('" + name + "','" + password + "');");
     }
 
     /**
-     *
+     * Get user's login info a String array.
+     * Index 0: name, index 1: password.
      */
     public String[] getLoginInfo() {
         Cursor cursor = db.rawQuery("Select * from Login", null);
