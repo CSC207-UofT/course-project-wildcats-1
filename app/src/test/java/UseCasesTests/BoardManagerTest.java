@@ -71,6 +71,17 @@ public class BoardManagerTest {
     }
 
     @Test(timeout = 50)
+    public void testPromotedPawn(){
+        Board bd = new Board();
+        Piece pawn = new Pawn("White", "c8");
+        bd.addPiece(pawn, "c8");
+        ((Pawn) pawn).promote();
+
+        assertTrue(bm.checkMoveChecker(bd,"c8","c1"));
+        assertTrue(bm.checkMoveChecker(bd,"c8","f5"));
+    }
+
+    @Test(timeout = 50)
     public void testKnight(){
         Board bd = new Board();
         Piece pc = new Knight("White", "b1");

@@ -81,7 +81,7 @@ public class GameManager {
                 //Check whether en passant occurred
                 if (!currSpot.substring(0, 1).equals(newSpot.substring(0, 1))
                         && board.checkSquareEmpty(newSpot)) {
-                    makeEnPassant(newSpot);
+                    this.makeEnPassant(newSpot);
                 }
                 //Check whether pawn promotion occurred
                 else if (playerWhiteInTurn && newSpot.substring(1).equals("8")
@@ -97,7 +97,7 @@ public class GameManager {
                 this.makeCastling(newSpot);
             }
 
-            //Place removedPiece in its new spot
+            //Place movedPiece in its new spot and take removedPiece out of play
             if (!board.checkSquareEmpty(newSpot)) {
                 Piece taken = board.removePiece(newSpot);
                 taken.eliminate();
