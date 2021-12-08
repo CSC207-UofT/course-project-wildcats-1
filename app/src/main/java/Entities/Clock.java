@@ -6,12 +6,12 @@ public class Clock {
 
     //initiate clock state white
     public String getStartTimeWhite(){
-        return "White's Timer\n00 : 00 : 00";
+        return "White's Timer 00 : 00 : 00";
     }
 
     //initiate clock state black
     public String getStartTimeBlack(){
-        return "Black's Timer\n00 : 00 : 00";
+        return "Black's Timer 00 : 00 : 00";
     }
 
     //convert time info to string in format to be shown on game window
