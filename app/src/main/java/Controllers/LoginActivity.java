@@ -32,13 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         eTxt_password = findViewById(R.id.eTxt_password);
         btn_login = findViewById(R.id.btn_login);
 
-        /*localDatabase = new LocalDatabase();
+        localDatabase = new LocalDatabase(this);
         if (localDatabase.loginInfoSaved()) {
             String name = localDatabase.getLoginInfo()[0];
             String password = localDatabase.getLoginInfo()[1];
             eTxt_username.setText(name);
             eTxt_password.setText(password);
-        }*/
+        }
 
         // Run onLoginClicked() when the login button is clicked.
         btn_login.setOnClickListener(view -> onLoginClicked());

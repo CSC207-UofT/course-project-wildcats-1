@@ -1,5 +1,7 @@
 package Interfaces;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,16 +14,20 @@ public class LocalDatabase {
 
     SQLiteDatabase db;
 
-    public LocalDatabase() {
-        db = SQLiteDatabase.openOrCreateDatabase("login", null);
+    public LocalDatabase(Activity activity) {
+        db = activity.openOrCreateDatabase("login", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS Login(Username VARCHAR, Password VARCHAR);");
+        db.close();
     }
 
     /**
      * Check if the user login if has been previously saved locally.
      */
     public boolean loginInfoSaved() {
-        if (DatabaseUtils.queryNumEntries(db, "Login") == 0) return false;
+        if (DatabaseUtils.queryNumEntries(db, "login") == 0) {
+            db.close();
+            return false;
+        }
         else return true;
     }
 
@@ -31,7 +37,8 @@ public class LocalDatabase {
      * @param password user's password
      */
     public void saveLoginInfo(String name, String password) {
-        db.execSQL("INSERT INTO Login VALUES('" + name + "','" + password + "');");
+        db.execSQL("INSERT INTO login VALUES('" + name + "','" + password + "');");
+        db.close();
     }
 
     /**
@@ -39,11 +46,12 @@ public class LocalDatabase {
      * Index 0: name, index 1: password.
      */
     public String[] getLoginInfo() {
-        Cursor cursor = db.rawQuery("Select * from Login", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM login", null);
         cursor.moveToFirst();
         String[] loginInfo = new String[2];
         loginInfo[0] = cursor.getString(0);
         loginInfo[1] = cursor.getString(1);
+        db.close();
         return loginInfo;
     }
 
