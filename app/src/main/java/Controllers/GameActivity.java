@@ -140,7 +140,6 @@ public class GameActivity extends AppCompatActivity {
                 //TODO Stalemate endgame method
             }
 
-            // TODO Provide all documentation and comments in this method
             Database.fetch(Database.Collections.MOVES, (moves) -> {
                 if (moves.size() > moveNumber) {
                     Move lastMove = (Move) moves.get(0);
