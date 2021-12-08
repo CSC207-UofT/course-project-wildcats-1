@@ -241,21 +241,42 @@ public class GameManager {
 
     /**
      *
-     * @return string (00 00 00) to initialize display of clock on game window.
+     * @return string (00 00 00) to initialize display of white player's clock
+     * on game window.
      */
-    public static String initializeClock(){
+    public static String initializeClockWhite(){
         Clock startClock = new Clock();
-        return startClock.getStartTime();
+        return startClock.getStartTimeWhite();
+    }
+
+    /**
+     *
+     * @return string (00 00 00) to initialize display of black player's clock
+     * on game window.
+     */
+    public static String initializeClockBlack(){
+        Clock startClock = new Clock();
+        return startClock.getStartTimeBlack();
     }
 
     /**
      *
      * @return string in format (00 00 00) to update display of clock on game window
-     * when called in gameloop.
+     * when called in gameloop for White player.
      */
-    public static String clockUpdator(int hours, int mins, int secs){
+    public static String clockUpdatorWhite(int hours, int mins, int secs){
         Clock updateClock = new Clock();
-        return updateClock.clockStringConverter(hours, mins, secs);
+        return updateClock.clockStringConverterWhite(hours, mins, secs);
+    }
+
+    /**
+     *
+     * @return string in format (00 00 00) to update display of clock on game window
+     * when called in gameloop for Black player.
+     */
+    public static String clockUpdatorBlack(int hours, int mins, int secs){
+        Clock updateClock = new Clock();
+        return updateClock.clockStringConverterBlack(hours, mins, secs);
     }
 
 

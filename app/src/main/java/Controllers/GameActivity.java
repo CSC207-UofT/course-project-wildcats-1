@@ -37,9 +37,13 @@ public class GameActivity extends AppCompatActivity {
     private BoardManager boardManager = new BoardManager();
 
     private int moveNumber = 0;
-    private int trackHours = 0;
-    private int trackMins = 0;
-    private int trackSecs = 0;
+    private int trackHoursBlack = 0;
+    private int trackMinsBlack = 0;
+    private int trackSecsBlack = 0;
+    private int trackHoursWhite = 0;
+    private int trackMinsWhite = 0;
+    private int trackSecsWhite = 0;
+
 
 
     @Override
@@ -66,9 +70,15 @@ public class GameActivity extends AppCompatActivity {
 
         moveBuffer = new MoveBuffer(this);
 
-        CharSequence charSequence = new StringBuffer(GameManager.initializeClock());
-        final TextView helloTextView = (TextView) findViewById(R.id.clockView);
-        helloTextView.setText(charSequence);
+        //initialize white's clock timer
+        CharSequence charSequenceWhite = new StringBuffer(GameManager.initializeClockWhite());
+        final TextView helloTextViewWhite = (TextView) findViewById(R.id.clockViewWhite);
+        helloTextViewWhite.setText(charSequenceWhite);
+
+        //initialize black's clock timer
+        CharSequence charSequenceBlack = new StringBuffer(GameManager.initializeClockBlack());
+        final TextView helloTextViewBlack = (TextView) findViewById(R.id.clockViewBlack);
+        helloTextViewBlack.setText(charSequenceBlack);
 
 
         gameLoop();
@@ -107,22 +117,48 @@ public class GameActivity extends AppCompatActivity {
             System.out.println("=== GAME LOOP ===");
 
             // logic to keep clock up to date
-            trackSecs += 1;
+            //white player turn
+            if(gameManager.isPlayerWhiteInTurn()){
+                trackSecsWhite += 1;
 
-            if (trackSecs == 60) {
-                trackSecs = 0;
-                trackMins += 1;
+                if (trackSecsWhite == 60) {
+                    trackSecsWhite = 0;
+                    trackMinsWhite += 1;
+                }
+                if (trackMinsWhite == 60) {
+                    trackMinsWhite = 0;
+                    trackHoursWhite += 1;
+                }
+                //convert data to a string and store
+                String timeToDisplayWhite = GameManager.clockUpdatorWhite(trackHoursWhite,
+                        trackMinsWhite, trackSecsWhite);
+                //update display
+                CharSequence charSequence = new StringBuffer(timeToDisplayWhite);
+                final TextView helloTextView = (TextView) findViewById(R.id.clockViewWhite);
+                helloTextView.setText(charSequence);
+            //black player turn
+            } else {
+                trackSecsBlack += 1;
+
+                if (trackSecsBlack == 60) {
+                    trackSecsBlack = 0;
+                    trackMinsBlack += 1;
+                }
+                if (trackMinsBlack == 60) {
+                    trackMinsBlack = 0;
+                    trackHoursBlack += 1;
+                }
+                //convert data to a string and store
+                String timeToDisplay = GameManager.clockUpdatorBlack(trackHoursBlack, trackMinsBlack, trackSecsBlack);
+                //update display
+                CharSequence charSequence = new StringBuffer(timeToDisplay);
+                final TextView helloTextView = (TextView) findViewById(R.id.clockViewBlack);
+                helloTextView.setText(charSequence);
             }
-            if (trackMins == 60) {
-                trackMins = 0;
-                trackHours += 1;
-            }
-            //convert data to a string and store
-            String timeToDisplay = GameManager.clockUpdator(trackHours, trackMins, trackSecs);
-            //update display
-            CharSequence charSequence = new StringBuffer(timeToDisplay);
-            final TextView helloTextView = (TextView) findViewById(R.id.clockView);
-            helloTextView.setText(charSequence);
+
+
+
+
 
             boardUpdator.updateBoard(gameManager.getBoard(), layoutManager);
 
