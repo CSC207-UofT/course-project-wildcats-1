@@ -4,11 +4,6 @@ import com.wildcats.ultimatechess.R;
 public class King extends Piece {
 
     /**
-     * A Boolean representing whether or not this King has attempted to castle.
-     */
-    boolean castled;
-
-    /**
      * A new King object with its own color and unique location.
      *
      * @param color The color of this King Object.
@@ -30,13 +25,6 @@ public class King extends Piece {
      */
     Piece getCopy() {
         return new King(this.color, this.location);
-    }
-
-    /**
-     * Mutate the unmoved attribute as false, to indicate that this Pawn object has moved.
-     */
-    public void moved() {
-        this.unmoved = false;
     }
 
 }

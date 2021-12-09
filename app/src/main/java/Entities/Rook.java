@@ -26,12 +26,4 @@ public class Rook extends Piece {
         return new Rook(this.color, this.location);
     }
 
-    /**
-     * Mutate the unmoved attribute as false, to indicate that this Pawn object has moved.
-     */
-    public void moved() {
-        this.unmoved = false;
-    }
-
-
 }

@@ -9,21 +9,6 @@ import UseCases.GameManager;
 
 public class GameManagerTest {
 
-//    GameManager gm;
-//    Board bd;
-//    Piece pc1;
-//    Piece pc2;
-//
-//    @Before
-//    public void setUp(){
-//        bd = new Board();
-//        pc1 = new Queen("White", "d1");
-//        pc2 = new Queen("Black", "d8");
-//        bd.addPiece(pc1, "d1");
-//        bd.addPiece(pc2, "d8");
-//        gm = new GameManager(bd);
-//    }
-
     /**
      * Test getBoard method
      */
@@ -82,5 +67,48 @@ public class GameManagerTest {
         assertEquals(0, gm.getWhitePiecesOut().size());
         assertEquals(1, gm.getBlackPiecesOut().size());
         assertSame(pc2, gm.getBlackPiecesOut().get(0));
+    }
+
+    @Test(timeout = 50)
+    public void testMakeCastling(){
+        Board bd = new Board();
+        Piece king = new King("White", "e1");
+        Piece rook = new Rook("White", "h1");
+        bd.addPiece(king, "e1");
+        bd.addPiece(rook, "h1");
+        GameManager gm = new GameManager(bd);
+
+        gm.makeMove("e1","g1");
+        assertEquals(king, gm.getBoard().checkSquare("g1"));
+        assertNull(gm.getBoard().checkSquare("e1"));
+        assertEquals(rook, gm.getBoard().checkSquare("f1"));
+        assertNull(gm.getBoard().checkSquare("h1"));
+        assertFalse(gm.isPlayerWhiteInTurn());
+
+    }
+
+    @Test(timeout = 50)
+    public void testMakeEnPassent(){
+        Board bd = new Board();
+        Piece whitePawn = new Pawn("White", "c2");
+        Piece blackPawn = new Pawn("Black", "d4");
+        bd.addPiece(whitePawn, "c2");
+        bd.addPiece(blackPawn, "d4");
+        GameManager gm = new GameManager(bd);
+
+        gm.makeMove("c2","c4");
+
+        assertFalse(gm.isPlayerWhiteInTurn());
+
+        gm.makeMove("d4", "c3");
+
+        assertEquals(blackPawn, gm.getBoard().checkSquare("c3"));
+        assertNull(gm.getBoard().checkSquare("d4"));
+        assertNull(gm.getBoard().checkSquare("c4"));
+        assertNull(gm.getBoard().checkSquare("c2"));
+        assertTrue(gm.isPlayerWhiteInTurn());
+        assertEquals(whitePawn, gm.getWhitePiecesOut().get(0));
+        assertEquals(1, gm.getWhitePiecesOut().size());
+
     }
 }
