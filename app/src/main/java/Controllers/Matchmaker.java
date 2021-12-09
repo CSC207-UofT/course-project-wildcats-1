@@ -26,6 +26,7 @@ public class Matchmaker {
                 Game game = (Game)doc;
                 if (game.getPlayerBlackID().equals(userId)) {
                     userInGame = true;
+                    break;
                 }
             }
             if (userInGame) {
@@ -68,12 +69,7 @@ public class Matchmaker {
                     int min = 1000;
                     int max = 10000;
                     final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            findOpponentAndJoinGame(userId, event);
-                        }
-                    }, ThreadLocalRandom.current().nextInt(min, max + 1));
+                    handler.postDelayed(() -> findOpponentAndJoinGame(userId, event), ThreadLocalRandom.current().nextInt(min, max + 1));
                 });
             }
         });

@@ -5,6 +5,13 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import Entities.*;
+import Entities.Bishop;
+import Entities.King;
+import Entities.Knight;
+import Entities.Pawn;
+import Entities.Piece;
+import Entities.Queen;
+import Entities.Rook;
 
 public class MoveChecker {
 
@@ -41,7 +48,7 @@ public class MoveChecker {
         } else if (piece instanceof Knight) {
             return checker.checkValidKnightMove(board, (Knight) piece, loc2);
         } else if (piece instanceof Queen) {
-            return checker.checkValidQueenMove(board, (Queen) piece, loc2);
+            return checker.checkValidQueenMove(board, piece, loc2);
         } else if (piece instanceof King) {
             return checker.checkValidKingMove(board, (King) piece, loc2);
         }

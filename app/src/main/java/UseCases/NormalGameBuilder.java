@@ -7,14 +7,10 @@ import Entities.Knight;
 import Entities.Pawn;
 import Entities.Queen;
 import Entities.Rook;
-import Interfaces.User;
 
 public class NormalGameBuilder implements GameBuilder {
 
-    private GameManager gm;
-    private Board board = new Board();
-    private User whitePlayer;
-    private User blackPlayer;
+    private final Board board = new Board();
 
     /**
      * Creates Pieces to add to the board for a normal chess game.
@@ -79,11 +75,10 @@ public class NormalGameBuilder implements GameBuilder {
      */
     public GameManager getGame(){
 
-        gm = new GameManager(board);
-//        gm.setUpWhite(this.whitePlayer);
+        //        gm.setUpWhite(this.whitePlayer);
 //        gm.setUpBlack(this.blackPlayer);
 
-        return gm;
+        return new GameManager(board);
     }
 
 }

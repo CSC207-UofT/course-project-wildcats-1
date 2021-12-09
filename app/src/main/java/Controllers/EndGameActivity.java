@@ -1,26 +1,24 @@
 package Controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.wildcats.ultimatechess.R;
-import Interfaces.Database;
-import Interfaces.User.UserRef;
 
 
 public class EndGameActivity extends AppCompatActivity {
     TextView text;
     View background;
-    private String username, userid, winner;
-    private boolean stale;
+    private String username;
+    private String userid;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +33,8 @@ public class EndGameActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         username = extras.getString("username");
         userid = extras.getString("userid");
-        stale = extras.getBoolean("stale");
-        winner = extras.getString("winner");
+        boolean stale = extras.getBoolean("stale");
+        String winner = extras.getString("winner");
 
         if (stale){
             text.setText("Stalemate \nClick anywhere on the screen to start a new game.");
