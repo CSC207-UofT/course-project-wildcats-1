@@ -16,6 +16,9 @@
             android:name="Controllers.GameActivity"
             android:exported="true" />
         <activity
+            android:name="Controllers.EndGameActivity"
+            android:exported="true" />
+        <activity
             android:name="Controllers.LoginActivity"
             android:exported="true">
             <intent-filter>

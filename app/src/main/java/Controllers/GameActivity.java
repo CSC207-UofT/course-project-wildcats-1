@@ -3,6 +3,7 @@ package Controllers;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -57,7 +58,10 @@ public class GameActivity extends AppCompatActivity {
         boardView = findViewById(R.id.img_board);
         boardView.setOnTouchListener(touchListener);
 
-        pawn = findViewById(R.id.a2);
+        // Get the username and id from the intent created in "LoginActivity".
+        Bundle extras = getIntent().getExtras();
+        username = extras.getString("username");
+        userid = extras.getString("userid");
 
         layoutManager = new PieceLayoutManager(this);
 
@@ -97,7 +101,7 @@ public class GameActivity extends AppCompatActivity {
                 touchLoc[1] = me.getY();
 
             }
-            String coordinates = boardCoordConvert(touchLoc[0], touchLoc[1], true);
+            String coordinates = boardCoordConvert(touchLoc[0], touchLoc[1]);
             System.out.println("COORDINATES: " + coordinates);
             tempMove = moveBuffer.addClick(coordinates, gameManager.getBoard());
             layoutManager.setClicked(moveBuffer);
@@ -136,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
                 CharSequence charSequence = new StringBuffer(timeToDisplayWhite);
                 final TextView helloTextView = (TextView) findViewById(R.id.clockViewWhite);
                 helloTextView.setText(charSequence);
-            //black player turn
+                //black player turn
             } else {
                 trackSecsBlack += 1;
 
@@ -170,10 +174,17 @@ public class GameActivity extends AppCompatActivity {
                 color = "Black";
             }
 
-            if (boardManager.checkCheckmated(gameManager.getBoard(), color)) {
-                //TODO Checkmate endgame method
-            } else if (boardManager.checkStalemated(gameManager.getBoard(), color)) {
-                //TODO Stalemate endgame method
+            if (boardManager.checkCheckmated(gameManager.getBoard(), "White")) {
+                openEndGameActivity("Black", false);
+            }
+            else if (boardManager.checkCheckmated(gameManager.getBoard(), "Black")) {
+                openEndGameActivity("White", false);
+            }
+            else if (boardManager.checkStalemated(gameManager.getBoard(), "White")) {
+                openEndGameActivity("Black", true);
+            }
+            else if (boardManager.checkStalemated(gameManager.getBoard(), "Black")) {
+                openEndGameActivity("Black", true);
             }
 
             // Fetch the database for new moves.
@@ -213,24 +224,28 @@ public class GameActivity extends AppCompatActivity {
      *
      * @param x the x-coordinate of click
      * @param y the y-coordinate of click
-     * @param isWhite true if the board is being viewed from white side, false otherwise
      */
-    private String boardCoordConvert(float x, float y, boolean isWhite){
+    private String boardCoordConvert(float x, float y){
         float boardSize = boardView.getHeight();
         float squareSize = boardSize/8;
         final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         final char[] nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
         char letter, num;
 
-        if (isWhite){
-            letter = letters[(int)(x/squareSize)];
-            num = nums[7-((int)(y/squareSize))];
-        }
-        else{
-            letter = letters[7-((int)(x/squareSize))];
-            num = nums[(int)(y/squareSize)];
-        }
+        letter = letters[(int)(x/squareSize)];
+        num = nums[7-((int)(y/squareSize))];
+
         return ""+letter+num;
+    }
+
+    private void openEndGameActivity(String winningColor, boolean stale){
+        Intent intent = new Intent(this, EndGameActivity.class);
+        intent.putExtra("winner", winningColor);
+        intent.putExtra("stale", stale);
+        intent.putExtra("username", username);
+        intent.putExtra("userid", userid);
+        startActivity(intent);
+        finish();
     }
 
 }
