@@ -1,5 +1,5 @@
 package Controllers;
 
 public interface MoveBufferInterface {
-    public String getClick1();
+    String getClick1();
 }

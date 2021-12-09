@@ -5,7 +5,7 @@ package UseCases;
  */
 public class GameBuildDirector {
 
-    private GameBuilder builder;
+    private final GameBuilder builder;
 
     public GameBuildDirector(GameBuilder gb){
         builder = gb;

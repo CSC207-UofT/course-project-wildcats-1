@@ -2,23 +2,21 @@ package Controllers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+
 import com.wildcats.ultimatechess.R;
 
 import java.util.Arrays;
 
 public class PieceLayoutManager{
 
-    private ImageView[][] board = new ImageView[8][8];
-    private ImageView image;
+    private final ImageView[][] board = new ImageView[8][8];
+//    private ImageView image;
     final char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
     final char[] nums = {'1', '2', '3', '4', '5', '6', '7', '8'};
     int id;
-    private Activity activity;
-    private int[] clicked = new int[2];
+    private final Activity activity;
+    private final int[] clicked = new int[2];
 
     public PieceLayoutManager(Context context){
         this.activity = (Activity)context;
@@ -35,9 +33,9 @@ public class PieceLayoutManager{
             }
         }
     }
-    public ImageView getImageAt(int col, int row){
-        return this.board[col][row];
-    }
+//    public ImageView getImageAt(int col, int row){
+//        return this.board[col][row];
+//    }
     public void editImageAt(int col, int row, int newImage) {
         this.board[col][row].setImageResource(newImage);
     }

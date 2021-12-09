@@ -3,17 +3,20 @@ package UseCases;
 import java.util.ArrayList;
 
 import Entities.*;
+import Entities.King;
+import Entities.Pawn;
+import Entities.Piece;
 import Interfaces.Database;
 import Interfaces.Move;
 
 public class GameManager {
 
-    private Board board;
+    private final Board board;
 
-    private String gameID;
+    private final String gameID;
 
-    private ArrayList<Piece> whitePiecesOut;
-    private ArrayList<Piece> blackPiecesOut;
+    private final ArrayList<Piece> whitePiecesOut;
+    private final ArrayList<Piece> blackPiecesOut;
 
     private int moveNumber = 1;
 
@@ -47,11 +50,9 @@ public class GameManager {
 
     }
 
-
-    public void endGame() {
-
-    }
-
+    /**
+     * @return This GameManager's board object.
+     */
     public Board getBoard() {
         return board;
     }

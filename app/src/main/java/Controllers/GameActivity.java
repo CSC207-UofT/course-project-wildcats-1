@@ -1,40 +1,39 @@
 package Controllers;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
-import android.widget.ImageView;
-import android.widget.TableLayout;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.wildcats.ultimatechess.R;
 
-import Interfaces.*;
-
-import UseCases.*;
-
-import android.view.View;
+import Interfaces.Database;
+import Interfaces.Document;
+import Interfaces.Move;
+import UseCases.BoardManager;
+import UseCases.BoardUpdator;
+import UseCases.GameBuildDirector;
+import UseCases.GameManager;
+import UseCases.MoveBuffer;
+import UseCases.NormalGameBuilder;
 
 
 // Controls user input for the Game page.
 public class GameActivity extends AppCompatActivity {
 
-    private TextView txt_playerWhite, txt_playerBlack;
     private String username, userid;
     private View boardView;
-    private float[] touchLoc = new float[2];
+    private final float[] touchLoc = new float[2];
 
-    private ImageView pawn;
-    private TableLayout board;
     private PieceLayoutManager layoutManager;
     private GameManager gameManager;
-    private GameBuildDirector gameBuilder;
-    private BoardUpdator boardUpdator = new BoardUpdator();
+    private final BoardUpdator boardUpdator = new BoardUpdator();
     private MoveBuffer moveBuffer;
-    private String tempMove;
     private BoardManager boardManager = new BoardManager();
 
     private int moveNumber = 0;
@@ -65,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
 
         layoutManager = new PieceLayoutManager(this);
 
-        gameBuilder = new GameBuildDirector(new NormalGameBuilder());
+        GameBuildDirector gameBuilder = new GameBuildDirector(new NormalGameBuilder());
         gameBuilder.Construct();
 
         gameManager = gameBuilder.getGame();
@@ -76,12 +75,12 @@ public class GameActivity extends AppCompatActivity {
 
         //initialize white's clock timer
         CharSequence charSequenceWhite = new StringBuffer(GameManager.initializeClockWhite());
-        final TextView helloTextViewWhite = (TextView) findViewById(R.id.clockViewWhite);
+        final TextView helloTextViewWhite = findViewById(R.id.clockViewWhite);
         helloTextViewWhite.setText(charSequenceWhite);
 
         //initialize black's clock timer
         CharSequence charSequenceBlack = new StringBuffer(GameManager.initializeClockBlack());
-        final TextView helloTextViewBlack = (TextView) findViewById(R.id.clockViewBlack);
+        final TextView helloTextViewBlack = findViewById(R.id.clockViewBlack);
         helloTextViewBlack.setText(charSequenceBlack);
 
 
@@ -103,10 +102,10 @@ public class GameActivity extends AppCompatActivity {
             }
             String coordinates = boardCoordConvert(touchLoc[0], touchLoc[1]);
             System.out.println("COORDINATES: " + coordinates);
-            tempMove = moveBuffer.addClick(coordinates, gameManager.getBoard());
+            String tempMove = moveBuffer.addClick(coordinates, gameManager.getBoard());
             layoutManager.setClicked(moveBuffer);
             System.out.println(tempMove);
-            if (tempMove!=null){
+            if (tempMove !=null){
                 System.out.println("VALID");
                 gameManager.makeMove(tempMove.substring(0,2), tempMove.substring(2));
             }
@@ -138,7 +137,7 @@ public class GameActivity extends AppCompatActivity {
                         trackMinsWhite, trackSecsWhite);
                 //update display
                 CharSequence charSequence = new StringBuffer(timeToDisplayWhite);
-                final TextView helloTextView = (TextView) findViewById(R.id.clockViewWhite);
+                final TextView helloTextView = findViewById(R.id.clockViewWhite);
                 helloTextView.setText(charSequence);
                 //black player turn
             } else {
@@ -156,35 +155,28 @@ public class GameActivity extends AppCompatActivity {
                 String timeToDisplay = GameManager.clockUpdatorBlack(trackHoursBlack, trackMinsBlack, trackSecsBlack);
                 //update display
                 CharSequence charSequence = new StringBuffer(timeToDisplay);
-                final TextView helloTextView = (TextView) findViewById(R.id.clockViewBlack);
+                final TextView helloTextView = findViewById(R.id.clockViewBlack);
                 helloTextView.setText(charSequence);
             }
-
-
-
-
 
             boardUpdator.updateBoard(gameManager.getBoard(), layoutManager);
 
             // color to be checked against
             String color;
+            String winner;
             if (gameManager.isPlayerWhiteInTurn()) {
                 color = "White";
+                winner = "Black";
             } else {
                 color = "Black";
+                winner = "White";
             }
 
-            if (boardManager.checkCheckmated(gameManager.getBoard(), "White")) {
-                openEndGameActivity("Black", false);
+            if (boardManager.checkCheckmated(gameManager.getBoard(), color)) {
+                openEndGameActivity(winner, false);
             }
-            else if (boardManager.checkCheckmated(gameManager.getBoard(), "Black")) {
-                openEndGameActivity("White", false);
-            }
-            else if (boardManager.checkStalemated(gameManager.getBoard(), "White")) {
-                openEndGameActivity("Black", true);
-            }
-            else if (boardManager.checkStalemated(gameManager.getBoard(), "Black")) {
-                openEndGameActivity("Black", true);
+            else if (boardManager.checkStalemated(gameManager.getBoard(), color)) {
+                openEndGameActivity(winner, true);
             }
 
             // Fetch the database for new moves.
@@ -238,6 +230,13 @@ public class GameActivity extends AppCompatActivity {
         return ""+letter+num;
     }
 
+    /**
+     * Opens the end gane screen.
+     *
+     * @param winningColor the color of the winning player
+     * @param stale True if game was a draw, otherwise false
+     *
+     */
     private void openEndGameActivity(String winningColor, boolean stale){
         Intent intent = new Intent(this, EndGameActivity.class);
         intent.putExtra("winner", winningColor);

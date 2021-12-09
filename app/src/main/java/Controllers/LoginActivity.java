@@ -2,23 +2,22 @@ package Controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.wildcats.ultimatechess.R;
+
+import Interfaces.Database;
+import Interfaces.Document;
 import Interfaces.LocalDatabase;
 import Interfaces.User;
-import Interfaces.Document;
-import Interfaces.Database;
 
 // Controls user input for the Login page.
 public class LoginActivity extends AppCompatActivity {
 
     private EditText eTxt_username, eTxt_password;
-    private Button btn_login;
-
-    private LocalDatabase localDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         // Bind Java variables to xml elements.
         eTxt_username = findViewById(R.id.eTxt_username);
         eTxt_password = findViewById(R.id.eTxt_password);
-        btn_login = findViewById(R.id.btn_login);
+        Button btn_login = findViewById(R.id.btn_login);
 
-        localDatabase = new LocalDatabase(this);
+        LocalDatabase localDatabase = new LocalDatabase(this);
         if (localDatabase.loginInfoSaved()) {
             String name = localDatabase.getLoginInfo()[0];
             String password = localDatabase.getLoginInfo()[1];
